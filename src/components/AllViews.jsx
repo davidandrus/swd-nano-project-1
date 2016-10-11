@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import AppBar from 'material-ui/AppBar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Register from './Register';
+import Login from './Login';
 
 export default class AllViews extends Component {
   render() {
@@ -12,7 +13,10 @@ export default class AllViews extends Component {
           <Tab label="Register" />
           <Tab label="Login" />
         </Tabs>
-        <Register />
+        <div style={{ maxWidth: '500px', margin: '0 auto' }}>
+          <Register />
+          <Login />
+        </div>
       </div>
     )
   }

@@ -7,8 +7,8 @@ import { Stepper, Step, StepLabel } from 'material-ui/Stepper';
 export default class Register extends Component {
   render() {
     return (
-      <div>
-        <Stepper style={{ maxWidth: 500, margin: '0 auto' }}>
+      <div style={{ maxWidth: 500, margin: '0 auto' }}>
+        <Stepper>
           <Step>
             <StepLabel>Basic Info</StepLabel>
           </Step>
@@ -18,40 +18,71 @@ export default class Register extends Component {
         </Stepper>
         <form>
           <TextField
-            fullWidth
-            hintText="Enter Your Full Name"
-            floatingLabelText="Full Name"
-            name="name"
             autoFocus
+            fullWidth
             autoComplete="name"
+            floatingLabelText="Full Name"
+            hintText="Enter Your Full Name"
+            name="name"
+            type="text"
           />
           <TextField
-            fullWidth
-            hintText="Enter Your Email"
-            floatingLabelText="Email"
-            name="email"
             autoFocus
+            fullWidth
             autoComplete="email"
+            floatingLabelText="Email"
+            hintText="Enter Your Email"
+            name="email"
             type="email"
           />
           <TextField
-            fullWidth
-            hintText="Enter Your Password"
-            floatingLabelText="Password"
-            name="Password"
             autoFocus
+            fullWidth
             autoComplete="name"
+            floatingLabelText="Password"
+            hintText="Enter Your Password"
+            name="Password"
             type="password"
           />
           <RaisedButton
-            style={{ margin: '10px 10px 0 0' }}
-            label="Create My Account"
-            type="submit"
             primary
+            label="Create My Account"
+            style={{ margin: '10px 10px 0 0' }}
+            type="submit"
           />
           <FlatButton
-            type="secondary"
             label="I already have an account"
+            type="secondary"
+          />
+        </form>
+        <h2>Thanks for Signing up!</h2>
+        <h3>Please share some info so people can know what you are all about.</h3>
+        <form>
+          <TextField
+            fullWidth
+            autoComplete="organization"
+            floatingLabelText="Employer Name"
+            hintText="Enter Employer Name"
+            name="employer"
+            type="text"
+          />
+          <TextField
+            fullWidth
+            autoComplete="organization-title"
+            floatingLabelText="Job Title"
+            hintText="Enter Your Job Title"
+            name="title"
+            type="text"
+          />
+          <TextField
+            fullWidth
+            multiLine
+            autoComplete=""
+            floatingLabelText="Bio"
+            hintText="Tell us about yourself"
+            name="bio"
+            rows={2}
+            type="text"
           />
         </form>
       </div>
