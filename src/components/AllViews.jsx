@@ -4,6 +4,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import Register from './Register';
 import Login from './Login';
 import CreateEvent from './CreateEvent';
+import EventList from './EventList';
 
 export default class AllViews extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class AllViews extends Component {
           <Register />
           <Login />
           <CreateEvent />
+          <EventList />
         </div>
       </div>
     )
