@@ -81,7 +81,7 @@ export default function CreateEvent(props) {
       <h1>Location</h1>
       <TextField
         fullWidth
-        autocomplete="street-address"
+        autoComplete="street-address"
         floatingLabelText="Street Address"
         hintText="Enter Street Adress"
         name="location-address"
@@ -89,7 +89,7 @@ export default function CreateEvent(props) {
       />
       <TextField
         fullWidth
-        autocomplete="address-line2"
+        autoComplete="address-line2"
         floatingLabelText="Apt/Suite Number"
         hintText="Enter Apt/Suite Number"
         name="location-address-2"
@@ -97,7 +97,7 @@ export default function CreateEvent(props) {
       />
       <TextField
         fullWidth
-        autocomplete="locality"
+        autoComplete="address-level2"
         floatingLabelText="City"
         hintText="Enter City"
         name="city"
@@ -105,7 +105,15 @@ export default function CreateEvent(props) {
       />
       <TextField
         fullWidth
-        autocomplete="postal-code"
+        autoComplete="address-level1"
+        floatingLabelText="State"
+        hintText="Enter State"
+        name="state"
+        type="text"
+      />
+      <TextField
+        fullWidth
+        autoComplete="postal-code"
         floatingLabelText="Zip Code"
         hintText="Enter Zip Code"
         name="postal-code"
