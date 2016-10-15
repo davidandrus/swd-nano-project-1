@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { Stepper, Step, StepLabel } from 'material-ui/Stepper';
 import DatePicker from 'material-ui/DatePicker';
+import LoginRegisterWrapper from './LoginRegisterWrapper';
 
-export default function Register(props) {
+function Register({ route }) {
   return (
-    <div style={{ maxWidth: 500, margin: '0 auto' }}>
-      <Stepper>
+    <LoginRegisterWrapper activePath={route.path}>
+      <Stepper activeStep={0}>
         <Step>
           <StepLabel>Basic Info</StepLabel>
         </Step>
@@ -46,15 +48,16 @@ export default function Register(props) {
         />
         <RaisedButton
           primary
-          label="Create My Account"
+          label="Create Account"
           style={{ margin: '10px 10px 0 0' }}
           type="submit"
         />
         <FlatButton
-          label="I already have an account"
+          label="Login"
           type="secondary"
         />
       </form>
+      {/*
       <h2>Thanks for Signing up!</h2>
       <h3>Please share some info so people can know what you are all about.</h3>
       <form>
@@ -91,6 +94,9 @@ export default function Register(props) {
           type="text"
         />
       </form>
-    </div>
+      */}
+    </LoginRegisterWrapper>
   );
 }
+
+export default connect(state => state)(Register);
