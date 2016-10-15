@@ -1,11 +1,14 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import { Stepper, Step, StepLabel } from 'material-ui/Stepper';
-import DatePicker from 'material-ui/DatePicker';
 import LoginRegisterWrapper from './LoginRegisterWrapper';
+import DatePicker from 'material-ui/DatePicker';
+import RegisterForm from './RegisterForm';
+import FlatButton from 'material-ui/FlatButton';
+
+const goToLogin = () => browserHistory.push('/login');
+//const handleRegisterSubmit = () => alert('handling register submit', arguments);
 
 function Register({ route }) {
   return (
@@ -18,45 +21,14 @@ function Register({ route }) {
           <StepLabel>Optional Personal Info</StepLabel>
         </Step>
       </Stepper>
-      <form>
-        <TextField
-          autoFocus
-          fullWidth
-          autoComplete="name"
-          floatingLabelText="Full Name"
-          hintText="Enter Your Full Name"
-          name="name"
-          type="text"
-        />
-        <TextField
-          autoFocus
-          fullWidth
-          autoComplete="email"
-          floatingLabelText="Email"
-          hintText="Enter Your Email"
-          name="email"
-          type="email"
-        />
-        <TextField
-          autoFocus
-          fullWidth
-          autoComplete="name"
-          floatingLabelText="Password"
-          hintText="Enter Your Password"
-          name="Password"
-          type="password"
-        />
-        <RaisedButton
-          primary
-          label="Create Account"
-          style={{ margin: '10px 10px 0 0' }}
-          type="submit"
-        />
-        <FlatButton
-          label="Login"
-          type="secondary"
-        />
-      </form>
+      <RegisterForm />
+      {/*
+      <FlatButton
+        onClick={goToLogin}
+        label="I already have an account"
+        type="secondary"
+      />
+      */}
       {/*
       <h2>Thanks for Signing up!</h2>
       <h3>Please share some info so people can know what you are all about.</h3>
