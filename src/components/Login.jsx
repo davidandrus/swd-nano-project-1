@@ -1,10 +1,17 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import LoginRegisterWrapper from './LoginRegisterWrapper';
+
+const goToRegister = () => browserHistory.push('/');
+
+const signInStyle = {
+  margin: '10px 10px 0 0',
+};
 
 function Login({ route }) {
   return (
@@ -32,16 +39,13 @@ function Login({ route }) {
         <RaisedButton
           primary
           label="Sign in"
-          style={{ margin: '10px 10px 0 0' }}
+          style={signInStyle}
           type="submit"
         />
         <FlatButton
-          label="I already have an account"
+          onClick={goToRegister}
+          label="I don't have an account"
           type="secondary"
-        />
-        <FlatButton
-          label="Forgot Password?"
-          type="plain"
         />
       </form>
     </LoginRegisterWrapper>
