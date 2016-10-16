@@ -4,7 +4,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import Register from '../components/Register';
-import Login from '../components/Login';
+import CreateProfile from '../components/CreateProfile';
+import EventList from '../components/EventList';
+import * as paths from '../constants/paths';
 
 injectTapEventPlugin();
 
@@ -15,23 +17,19 @@ export default function App() {
         <AppBar title="Meet-Up Event Planner" />
         <Router history={browserHistory}>
           <Route
-            path="/"
             component={Register}
+            path={paths.register}
           />
           <Route
-            path="/login"
-            component={Login}
+            component={CreateProfile}
+            path={paths.createProfile}
+          />
+          <Route
+            component={EventList}
+            path={paths.events}
           />
         </Router>
       </div>
     </MuiThemeProvider>
   );
 }
-
-// function select(state) {
-//   return {
-//     counter: state.counter,
-//   };
-// }
-//
-// export default connect(select)(App);
