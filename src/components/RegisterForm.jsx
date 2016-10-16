@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import { TextField } from 'redux-form-material-ui';
@@ -29,8 +29,6 @@ const passwordRules = [
   new RegExp(`[\\${specialChars.join('\\')}]`),
 ];
 
-console.log(passwordRules);
-
 function validate(values) {
   const errors = {};
 
@@ -49,7 +47,7 @@ function validate(values) {
     errors.password = `${nameMap.password} must be at least 8 characters`;
   }
 
-  // make sure the is required error passes through, before the specific password rules
+  // make sure the required or length error passes through, before these specific password rules
   if (! errors.password) {
     passwordRules.forEach(rule => {
       if (!rule.test(values.password)) {
@@ -61,15 +59,14 @@ function validate(values) {
 
   return errors;
 }
-
-function RegisterForm(props) {
+function RegisterForm({ handleSubmit, onSubmit }) {
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Field
-        component={TextField}
         autoFocus
         fullWidth
         autoComplete="name"
+        component={TextField}
         floatingLabelText="Full Name"
         hintText="Enter Your Full Name"
         name="name"
@@ -77,17 +74,18 @@ function RegisterForm(props) {
         required
       />
       <Field
-        component={TextField}
         fullWidth
         autoComplete="email"
+        component={TextField}
         floatingLabelText="Email"
         hintText="Enter Your Email"
         name="email"
         type="email"
       />
       <Field
-        component={TextField}
         fullWidth
+        autocomplete="new-password"
+        component={TextField}
         floatingLabelText="Password"
         hintText="Enter Your Password"
         name="password"
@@ -95,15 +93,19 @@ function RegisterForm(props) {
       />
       <RaisedButton
         primary
-        label="Create Account"
-        style={{ margin: '10px 10px 0 0' }}
+        label="Save Profile"
         type="submit"
       />
     </form>
   );
 }
 
+RegisterForm.propTypes = {
+  handleSubmit: PropTypes.func,
+  onSubmit: PropTypes.func,
+};
+
 export default reduxForm({
-  form: 'registerRequired',
+  form: 'register',
   validate,
 })(RegisterForm);

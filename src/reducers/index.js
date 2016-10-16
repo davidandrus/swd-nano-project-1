@@ -8,3 +8,8 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
+
+export const getters = {
+  getRegisterFormValues: state => state.form.register.values,
+  getProfileFormValues: state => state.form.profile.values,
+};
