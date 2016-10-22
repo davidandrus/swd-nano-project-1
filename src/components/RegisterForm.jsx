@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import { TextField } from 'redux-form-material-ui';
+import RequiredLabel from './RequiredLabel';
 
 const nameMap = {
   name: 'Full Name',
@@ -59,7 +60,8 @@ function validate(values) {
 
   return errors;
 }
-function RegisterForm({ handleSubmit, onSubmit }) {
+
+export function RegisterForm({ handleSubmit, onSubmit }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Field
@@ -67,7 +69,7 @@ function RegisterForm({ handleSubmit, onSubmit }) {
         fullWidth
         autoComplete="name"
         component={TextField}
-        floatingLabelText="Full Name"
+        floatingLabelText={<RequiredLabel text="Full Name" />}
         hintText="Enter Your Full Name"
         name="name"
         type="text"
@@ -77,7 +79,7 @@ function RegisterForm({ handleSubmit, onSubmit }) {
         fullWidth
         autoComplete="email"
         component={TextField}
-        floatingLabelText="Email"
+        floatingLabelText={<RequiredLabel text="Email" />}
         hintText="Enter Your Email"
         name="email"
         type="email"
@@ -86,7 +88,7 @@ function RegisterForm({ handleSubmit, onSubmit }) {
         fullWidth
         autocomplete="new-password"
         component={TextField}
-        floatingLabelText="Password"
+        floatingLabelText={<RequiredLabel text="Password" />}
         hintText="Enter Your Password"
         name="password"
         type="password"
