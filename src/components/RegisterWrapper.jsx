@@ -1,18 +1,14 @@
 import React, { PropTypes } from 'react';
 import { Stepper, Step, StepLabel } from 'material-ui/Stepper';
 import * as paths from '../constants/paths';
-
-
-const wrapperStyle = {
-  maxWidth: 500,
-  margin: '0 auto',
-  padding: '20px',
-};
+import FormWrapper from './FormWrapper';
 
 export default function RegisterWrapper({ children, activePath }) {
+  const activeStep = activePath === paths.registerPath ? 0 : 1;
+
   return (
-    <div style={wrapperStyle}>
-      <Stepper activeStep={activePath === paths.registerPath ? 0 : 1}>
+    <FormWrapper>
+      <Stepper activeStep={activeStep}>
         <Step>
           <StepLabel>Basic Info</StepLabel>
         </Step>
@@ -21,7 +17,7 @@ export default function RegisterWrapper({ children, activePath }) {
         </Step>
       </Stepper>
       { children }
-    </div>
+    </FormWrapper>
   );
 }
 

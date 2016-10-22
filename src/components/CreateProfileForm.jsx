@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
-import { TextField } from 'redux-form-material-ui';
-import DatePicker from 'material-ui/DatePicker';
+import { TextField, DatePicker } from 'redux-form-material-ui';
 
-function CreateProfileForm({ handleSubmit, onSubmit }) {
+export function CreateProfileForm({ handleSubmit, onSubmit }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Field

@@ -4,11 +4,53 @@ import { TextField, SelectField, DatePicker, TimePicker } from 'redux-form-mater
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
+import RequiredLabel from './RequiredLabel';
+
+const nameMap = {
+  'event-name': 'Event Name',
+  'event-type': 'Event Type',
+  'host': 'Host',
+  'start-date': 'Start Date',
+  'start-time': 'Start Time',
+  'end-date': 'End Date',
+  'end-time': 'End Time',
+};
 
 function validate(values) {
   const errors = [];
+
+  // required fields;
+  [
+    'event-name',
+    'event-type',
+    'host',
+    'start-date',
+    'start-time',
+    'end-date',
+    'end-time',
+  ].forEach(key => {
+    if (!values[key]) {
+      errors[key] = `${nameMap[key]} is required`;
+    }
+  });
+
   return errors;
 }
+
+const dateTimeWrapperStyle = {
+  alignItems: 'flex-end',
+  display: 'flex',
+  justifyContent: 'space-between',
+  maxWidth: '100%',
+};
+
+const datePickerStyle = {
+  flex: '0 0 48%',
+};
+
+const timePickerStyle = {
+  flex: '0 0 48%',
+};
 
 export function CreateEventForm({ handleSubmit, submit }) {
   return (
@@ -17,7 +59,7 @@ export function CreateEventForm({ handleSubmit, submit }) {
         autoFocus
         fullWidth
         component={TextField}
-        floatingLabelText="Event Name"
+        floatingLabelText={<RequiredLabel text={nameMap['event-name']} />}
         hintText="Enter the name of your event"
         name="event-name"
         type="text"
@@ -31,7 +73,7 @@ export function CreateEventForm({ handleSubmit, submit }) {
       <Field
         fullWidth
         component={SelectField}
-        floatingLabelText="Event Type"
+        floatingLabelText={<RequiredLabel text={nameMap['event-type']} />}
         name="event-type"
       >
         <MenuItem
@@ -50,36 +92,47 @@ export function CreateEventForm({ handleSubmit, submit }) {
       <Field
         fullWidth
         component={TextField}
-        floatingLabelText="Event Host"
+        floatingLabelText={<RequiredLabel text={nameMap.host} />}
         hintText="Enter the name of your host"
         name="host"
         type="text"
       />
-      <div>
+      <div style={dateTimeWrapperStyle}>
         <Field
+          fullWidth
           component={DatePicker}
-          floatingLabelText="Start Date"
+          style={datePickerStyle}
+          floatingLabelText={<RequiredLabel text={nameMap['start-date']} />}
           name="start-date"
         />
         <Field
+          fullWidth
           component={TimePicker}
-          hintText="Start Time"
+          floatingLabelText={<RequiredLabel text={nameMap['start-time']} />}
+          style={timePickerStyle}
           name="start-time"
         />
       </div>
-      <div>
+      <div style={dateTimeWrapperStyle}>
         <Field
+          fullWidth
           component={DatePicker}
-          floatingLabelText="End Date"
-          name="end-time"
+          floatingLabelText={<RequiredLabel text={nameMap['end-date']} />}
+          name="end-date"
+          style={datePickerStyle}
         />
         <Field
+          fullWidth
           component={TimePicker}
-          hintText="End Time"
+          floatingLabelText={<RequiredLabel text={nameMap['end-time']} />}
           name="end-time"
+          style={timePickerStyle}
         />
       </div>
+      {/*
       <div>
+        <h1>Guest List</h1>
+        <h3>A guest List is required, you must add at least one guest to your list</h3>
         <Field
           component={TextField}
           floatingLabelText="Add Guest"
@@ -88,12 +141,13 @@ export function CreateEventForm({ handleSubmit, submit }) {
         <RaisedButton secondary label="Add" />
       </div>
       <Chip onRequestDelete={() => {}}>email@email.com</Chip>
+      */}
       <h1>Location</h1>
       <Field
         fullWidth
         component={TextField}
         autoComplete="street-address"
-        floatingLabelText="Street Address"
+        floatingLabelText={<RequiredLabel text="Street Address" />}
         hintText="Enter Street Adress"
         name="location-address"
         type="text"
@@ -111,7 +165,7 @@ export function CreateEventForm({ handleSubmit, submit }) {
         fullWidth
         component={TextField}
         autoComplete="address-level2"
-        floatingLabelText="City"
+        floatingLabelText={<RequiredLabel text="City" />}
         hintText="Enter City"
         name="city"
         type="text"
@@ -120,7 +174,7 @@ export function CreateEventForm({ handleSubmit, submit }) {
         fullWidth
         component={TextField}
         autoComplete="address-level1"
-        floatingLabelText="State"
+        floatingLabelText={<RequiredLabel text="State" />}
         hintText="Enter State"
         name="state"
         type="text"
@@ -129,7 +183,7 @@ export function CreateEventForm({ handleSubmit, submit }) {
         fullWidth
         component={TextField}
         autoComplete="postal-code"
-        floatingLabelText="Zip Code"
+        floatingLabelText={<RequiredLabel text="Zip Code" />}
         hintText="Enter Zip Code"
         name="postal-code"
         type="text"

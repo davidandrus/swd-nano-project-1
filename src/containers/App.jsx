@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import Register from '../components/Register';
 import CreateProfile from '../components/CreateProfile';
+import CreateEvent from '../components/CreateEvent';
 import EventList from '../components/EventList';
 import * as paths from '../constants/paths';
 
@@ -27,6 +28,10 @@ export default function App() {
           <Route
             component={EventList}
             path={paths.events}
+          />
+          <Route
+            component={CreateEvent}
+            path={paths.createEvent}
           />
         </Router>
       </div>
