@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { TextField, SelectField, DatePicker, TimePicker } from 'redux-form-material-ui';
@@ -27,20 +28,23 @@ const eventTypes = {
   wedding: 'Wedding',
 };
 
-const eventTypeComponents = Object.keys(eventTypes).map(type => {
-  return (
-    <MenuItem
-      key={type}
-      value={type}
-      primaryText={eventTypes[type]}
-    />
-  );
-});
+const eventTypeComponents = Object.keys(eventTypes).map(type => (
+  <MenuItem
+    key={type}
+    value={type}
+    primaryText={eventTypes[type]}
+  />
+));
+
+const hasDateError = errors => !!(errors['start-date'] ||
+  errors['start-time'] ||
+  errors['end-date'] ||
+  errors['end-time']);
 
 function validate(values) {
   const errors = [];
 
-  // required fields;
+  // required fields
   [
     'event-name',
     'event-type',
@@ -53,17 +57,39 @@ function validate(values) {
     'city',
     'state',
     'postal-code',
-  ].forEach(key => {
+  ].forEach((key) => {
     if (!values[key]) {
       errors[key] = `${nameMap[key]} is required`;
     }
   });
 
+  if (!hasDateError(errors)) {
+    const startDate = moment(values['start-date']);
+    const startTime = moment(values['start-time']);
+    const endDate = moment(values['end-date']);
+    const endTime = moment(values['end-time']);
+
+    const startCombined = moment(startDate).set({
+      hours: startTime.hours(),
+      minutes: startTime.minutes(),
+    });
+
+    const endCombined = moment(endDate).set({
+      hours: endTime.hours(),
+      minutes: endTime.minutes(),
+    });
+
+    // dates out of order
+    if (endCombined < startCombined) {
+      errors['start-date'] = errors['start-time'] = 'Start cannot be later than End';
+      errors['end-date'] = errors['end-time'] = 'End cannot be earlier than Start';
+    }
+  }
+
   return errors;
 }
 
 const dateTimeWrapperStyle = {
-  alignItems: 'flex-end',
   display: 'flex',
   justifyContent: 'space-between',
   maxWidth: '100%',
@@ -170,7 +196,7 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
         fullWidth
         component={TextField}
         autoComplete="address-line2"
-        floatingLabelText={nameMap['location-adddress-2']}
+        floatingLabelText={nameMap['location-address-2']}
         hintText="Enter Apt/Suite Number"
         name="location-address-2"
         type="text"
