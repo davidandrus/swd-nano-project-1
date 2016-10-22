@@ -9,12 +9,33 @@ import RequiredLabel from './RequiredLabel';
 const nameMap = {
   'event-name': 'Event Name',
   'event-type': 'Event Type',
-  'host': 'Host',
+  host: 'Host',
   'start-date': 'Start Date',
   'start-time': 'Start Time',
   'end-date': 'End Date',
   'end-time': 'End Time',
+  'location-address': 'Street Address',
+  'location-address-2': 'Suite/Apt',
+  city: 'City',
+  state: 'State',
+  'postal-code': 'Zip Code',
 };
+
+const eventTypes = {
+  'birthday-party': 'Birthday Party',
+  'confererence-talk': 'Conference Talk',
+  wedding: 'Wedding',
+};
+
+const eventTypeComponents = Object.keys(eventTypes).map(type => {
+  return (
+    <MenuItem
+      key={type}
+      value={type}
+      primaryText={eventTypes[type]}
+    />
+  );
+});
 
 function validate(values) {
   const errors = [];
@@ -28,6 +49,10 @@ function validate(values) {
     'start-time',
     'end-date',
     'end-time',
+    'location-address',
+    'city',
+    'state',
+    'postal-code',
   ].forEach(key => {
     if (!values[key]) {
       errors[key] = `${nameMap[key]} is required`;
@@ -52,9 +77,9 @@ const timePickerStyle = {
   flex: '0 0 48%',
 };
 
-export function CreateEventForm({ handleSubmit, submit }) {
+export function CreateEventForm({ handleSubmit, onSubmit }) {
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Field
         autoFocus
         fullWidth
@@ -76,18 +101,7 @@ export function CreateEventForm({ handleSubmit, submit }) {
         floatingLabelText={<RequiredLabel text={nameMap['event-type']} />}
         name="event-type"
       >
-        <MenuItem
-          value={1}
-          primaryText="Birthday Party"
-        />
-        <MenuItem
-          value={2}
-          primaryText="Conference Talk"
-        />
-        <MenuItem
-          value={3}
-          primaryText="Wedding"
-        />
+        {eventTypeComponents}
       </Field>
       <Field
         fullWidth
@@ -147,7 +161,7 @@ export function CreateEventForm({ handleSubmit, submit }) {
         fullWidth
         component={TextField}
         autoComplete="street-address"
-        floatingLabelText={<RequiredLabel text="Street Address" />}
+        floatingLabelText={<RequiredLabel text={nameMap['location-address']} />}
         hintText="Enter Street Adress"
         name="location-address"
         type="text"
@@ -156,7 +170,7 @@ export function CreateEventForm({ handleSubmit, submit }) {
         fullWidth
         component={TextField}
         autoComplete="address-line2"
-        floatingLabelText="Apt/Suite Number"
+        floatingLabelText={nameMap['location-adddress-2']}
         hintText="Enter Apt/Suite Number"
         name="location-address-2"
         type="text"
@@ -165,7 +179,7 @@ export function CreateEventForm({ handleSubmit, submit }) {
         fullWidth
         component={TextField}
         autoComplete="address-level2"
-        floatingLabelText={<RequiredLabel text="City" />}
+        floatingLabelText={<RequiredLabel text={nameMap.city} />}
         hintText="Enter City"
         name="city"
         type="text"
@@ -174,7 +188,7 @@ export function CreateEventForm({ handleSubmit, submit }) {
         fullWidth
         component={TextField}
         autoComplete="address-level1"
-        floatingLabelText={<RequiredLabel text="State" />}
+        floatingLabelText={<RequiredLabel text={nameMap['state']} />}
         hintText="Enter State"
         name="state"
         type="text"
@@ -183,10 +197,16 @@ export function CreateEventForm({ handleSubmit, submit }) {
         fullWidth
         component={TextField}
         autoComplete="postal-code"
-        floatingLabelText={<RequiredLabel text="Zip Code" />}
+        floatingLabelText={<RequiredLabel text={nameMap['postal-code']} />}
         hintText="Enter Zip Code"
         name="postal-code"
         type="text"
+      />
+
+      <RaisedButton
+        primary
+        label="Create Event"
+        type="submit"
       />
     </form>
   );
