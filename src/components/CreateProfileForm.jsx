@@ -5,7 +5,7 @@ import { TextField, DatePicker } from 'redux-form-material-ui';
 
 export function CreateProfileForm({ handleSubmit, onSubmit }) {
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Field
         autoFocus
         fullWidth
