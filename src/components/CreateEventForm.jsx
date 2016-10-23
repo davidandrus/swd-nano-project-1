@@ -15,11 +15,6 @@ const nameMap = {
   'start-time': 'Start Time',
   'end-date': 'End Date',
   'end-time': 'End Time',
-  'location-address': 'Street Address',
-  'location-address-2': 'Suite/Apt',
-  city: 'City',
-  state: 'State',
-  'postal-code': 'Zip Code',
 };
 
 const eventTypes = {
@@ -53,10 +48,6 @@ function validate(values) {
     'start-time',
     'end-date',
     'end-time',
-    'location-address',
-    'city',
-    'state',
-    'postal-code',
   ].forEach((key) => {
     if (!values[key]) {
       errors[key] = `${nameMap[key]} is required`;
@@ -169,69 +160,9 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
           style={timePickerStyle}
         />
       </div>
-      {/*
-      <div>
-        <h1>Guest List</h1>
-        <h3>A guest List is required, you must add at least one guest to your list</h3>
-        <Field
-          component={TextField}
-          floatingLabelText="Add Guest"
-          hintText="Enter the name of your guest"
-        />
-        <RaisedButton secondary label="Add" />
-      </div>
-      <Chip onRequestDelete={() => {}}>email@email.com</Chip>
-      */}
-      <h1>Location</h1>
-      <Field
-        fullWidth
-        component={TextField}
-        autoComplete="street-address"
-        floatingLabelText={<RequiredLabel text={nameMap['location-address']} />}
-        hintText="Enter Street Adress"
-        name="location-address"
-        type="text"
-      />
-      <Field
-        fullWidth
-        component={TextField}
-        autoComplete="address-line2"
-        floatingLabelText={nameMap['location-address-2']}
-        hintText="Enter Apt/Suite Number"
-        name="location-address-2"
-        type="text"
-      />
-      <Field
-        fullWidth
-        component={TextField}
-        autoComplete="address-level2"
-        floatingLabelText={<RequiredLabel text={nameMap.city} />}
-        hintText="Enter City"
-        name="city"
-        type="text"
-      />
-      <Field
-        fullWidth
-        component={TextField}
-        autoComplete="address-level1"
-        floatingLabelText={<RequiredLabel text={nameMap['state']} />}
-        hintText="Enter State"
-        name="state"
-        type="text"
-      />
-      <Field
-        fullWidth
-        component={TextField}
-        autoComplete="postal-code"
-        floatingLabelText={<RequiredLabel text={nameMap['postal-code']} />}
-        hintText="Enter Zip Code"
-        name="postal-code"
-        type="text"
-      />
-
       <RaisedButton
         primary
-        label="Create Event"
+        label="Continue"
         type="submit"
       />
     </form>

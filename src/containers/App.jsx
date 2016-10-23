@@ -6,6 +6,8 @@ import AppBar from 'material-ui/AppBar';
 import Register from '../views/Register';
 import CreateProfile from '../views/CreateProfile';
 import CreateEvent from '../views/CreateEvent';
+import CreateEventLocation from '../views/CreateEventLocation';
+import CreateEventGuests from '../views/CreateEventGuests';
 import EventList from '../views/EventList';
 import * as paths from '../constants/paths';
 
@@ -32,6 +34,14 @@ export default function App() {
           <Route
             component={CreateEvent}
             path={paths.createEvent}
+          />
+          <Route
+            component={CreateEventLocation}
+            path={paths.createEventLocation}
+          />
+          <Route
+            component={CreateEventGuests}
+            path={paths.createEventGuests}
           />
         </Router>
       </div>
