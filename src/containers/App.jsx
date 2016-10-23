@@ -58,7 +58,10 @@ export default function App() {
   return (
     <MuiThemeProvider>
       <div>
-        <AppBar title="Meet-Up Event Planner" />
+        <AppBar
+          showMenuIconButton={false}
+          title="Meet-Up Event Planner"
+        />
         <Router history={history}>
           <Route
             onEnter={enterHooks.register}
