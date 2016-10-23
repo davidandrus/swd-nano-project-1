@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import moment from 'moment';
+import omit from 'lodash/omit';
+import { connect } from 'react-redux';
 import {
   Card,
   CardTitle,
@@ -7,37 +10,80 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 import LocationOn from 'material-ui/svg-icons/communication/location-on';
 import { goToCreateEvent } from '../actions';
+import { getters } from '../reducers';
 
-export default function EventList() {
+const cardStyle = { marginBottom: '20px' };
+const cardWrapper = {
+  margin: '20px auto 0',
+  maxWidth: '500px',
+};
+
+export function EventList({ events }) {
   return (
-    <div>
-      <Card>
-        <CardTitle
-          title="Event Name"
-          subtitle={
-            <span>
-              created by: Event Creator<br />
-              hosted by: Event hosted<br />
-              event type: Event Type<br />
-              time: 1/2/2015 - 7:00am to 1/3/2015 9:00pm<br /><br />
+    <div style={{ cardWrapper }}>
+      {events.map((event, index) => {
+        { /* Normally wouldn't use index here, but since it's a demo will make an exception */ }
+        return (
+          <Card
+            key={index}
+            style={cardStyle}
+          >
+            <CardTitle
+              title={event['event-name']}
+              subtitle={
+                <span>
+                  created by: {'@TODO TODO TODO'}<br />
+                  hosted by: {event.host}<br />
+                  event type: {event['event-type']}<br />
+                  time: {event.startDate} to {event.endDate}<br /><br />
+                  location: <LocationOn /> {event['location-address']} {event['location-address-2']} {event.city}, {event.state} {event['postal-code']}
+                </span>
+              }
+            />
+            {event.message &&
+              <CardText>
+                {event.message}
+              </CardText>
+            }
+          </Card>
+        );
+      })}
 
-              location: <LocationOn /> 34343 something st, something, state 038028340
-            </span>
-          }
-        />
-        <CardText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-        </CardText>
-      </Card>
       <RaisedButton
         primary
-        label="CreateButton"
+        label="Create New Event"
         onClick={goToCreateEvent}
         type="submit"
       />
     </div>
   );
 }
+
+EventList.propTypes = {
+  events: PropTypes.arrayOf(PropTypes.object),
+};
+
+const mapStateToProps = state => ({
+  events: getters.getEvents(state).map((event) => {
+    const updatedEvent = omit(event, [
+      'start-date',
+      'end-date',
+      'start-time',
+      'end-time',
+    ]);
+
+    return {
+      ...updatedEvent,
+      startDate: moment(event['start-date']).set({
+        hours: moment(event['start-time']).hours(),
+        minutes: moment(event['start-time']).hours(),
+      }).format('MM/DD/YY - hh:mma'),
+      endDate: moment(event['end-date']).set({
+        hours: moment(event['end-time']).hours(),
+        minutes: moment(event['end-time']).hours(),
+      }).format('MM/DD/YY - hh:mma'),
+    };
+  }),
+});
+
+export default connect(mapStateToProps)(EventList);
