@@ -1,11 +1,10 @@
-
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import LoginRegisterWrapper from './LoginRegisterWrapper';
+import FormWrapper from '../components/FormWrapper';
 
 const goToRegister = () => browserHistory.push('/');
 
@@ -15,7 +14,7 @@ const signInStyle = {
 
 function Login({ route }) {
   return (
-    <LoginRegisterWrapper activePath={route.path}>
+    <FormWrapper activePath={route.path}>
       <form>
         <h1>Login</h1>
         <TextField
@@ -48,9 +47,13 @@ function Login({ route }) {
           type="secondary"
         />
       </form>
-    </LoginRegisterWrapper>
+    </FormWrapper>
   );
 }
+
+Login.propTypes = {
+  route: PropTypes.object,
+};
 
 function mapStateToProps(state) {
   return state;

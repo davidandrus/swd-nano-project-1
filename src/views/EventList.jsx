@@ -1,13 +1,12 @@
 import React from 'react';
 import {
   Card,
-  CardActions,
   CardTitle,
   CardText,
 } from 'material-ui/Card';
 import LocationOn from 'material-ui/svg-icons/communication/location-on';
 
-export default function EventList(props) {
+export default function EventList() {
   return (
     <Card>
       <CardTitle

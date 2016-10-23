@@ -6,19 +6,19 @@ var assign = require('lodash/assign');
 module.exports = assign({}, base, {
   devtool: 'source-map',
   entry: [
-    './src/index'
+    './src/index',
   ],
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+        'NODE_ENV': JSON.stringify('production'),
+      },
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
-        warnings: false
-      }
-    })
-  ]
-};
+        warnings: false,
+      },
+    }),
+  ],
+});

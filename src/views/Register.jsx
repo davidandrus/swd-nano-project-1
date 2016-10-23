@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import RegisterWrapper from './RegisterWrapper';
-import RegisterForm from './RegisterForm';
+import RegisterWrapper from '../components/RegisterWrapper';
+import RegisterForm from '../components/RegisterForm';
 import { register as registerAction } from '../actions';
 
 function Register({ activePath, register }) {
