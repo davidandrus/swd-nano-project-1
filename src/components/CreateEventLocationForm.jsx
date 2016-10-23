@@ -27,6 +27,8 @@ function validate(values) {
     }
   });
 
+  console.log('validating', errors)
+
   return errors;
 }
 
