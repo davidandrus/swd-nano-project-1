@@ -2,6 +2,7 @@ import { handleActions } from 'redux-actions';
 import * as actionTypes from '../constants/actionTypes';
 
 const INITIAL_STATE = {
+  events: [],
   createEvent: null,
   createEventLocation: null,
   createEventGuests: null,
@@ -29,5 +30,17 @@ export default handleActions({
   [actionTypes.createProfile]: (state, action) => ({
     ...state,
     profile: action.payload,
+  }),
+
+  [actionTypes.addEvent]: state => ({
+    ...state,
+    events: [...state.events, {
+      ...state.createEvent,
+      ...state.createEventLocation,
+      ...state.createEventGuests,
+    }],
+    createEvent: null,
+    createEventLocation: null,
+    createEventGuests: null,
   }),
 }, INITIAL_STATE);
