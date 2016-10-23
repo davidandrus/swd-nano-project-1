@@ -12,4 +12,7 @@ export default rootReducer;
 export const getters = {
   getRegisterFormValues: state => state.form.register.values,
   getProfileFormValues: state => state.form.profile.values,
+  getCreateFormValues: state => state.form.createEvent.values,
+  getCreateLocationValues: state => state.form.createLocation.values,
+  getCreateGuestsValues: state => state.form.createGuests.values,
 };

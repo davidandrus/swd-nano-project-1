@@ -1,15 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import CreateEventForm from '../components/CreateEventForm';
 import CreateEventWrapper from '../components/CreateEventWrapper';
+import { createEvent as createEventAction } from '../actions';
 
-function createForm() {
-  console.log('createForm Called');
-}
-
-export default function CreateEvent() {
+export function CreateEvent({ createEvent, activePath }) {
   return (
-    <CreateEventWrapper>
-      <CreateEventForm onSubmit={createForm} />
+    <CreateEventWrapper activePath={activePath}>
+      <CreateEventForm onSubmit={createEvent} />
     </CreateEventWrapper>
   );
 }
+
+function mapStateToProps(state, ownProps) {
+  return {
+    activePath: ownProps.route.path,
+  };
+};
+
+export default connect(mapStateToProps, {
+  createEvent: createEventAction,
+})(CreateEvent);
