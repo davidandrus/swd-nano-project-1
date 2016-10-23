@@ -3,10 +3,10 @@ import { Router, Route, browserHistory } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-import Register from '../components/Register';
-import CreateProfile from '../components/CreateProfile';
-import CreateEvent from '../components/CreateEvent';
-import EventList from '../components/EventList';
+import Register from '../views/Register';
+import CreateProfile from '../views/CreateProfile';
+import CreateEvent from '../views/CreateEvent';
+import EventList from '../views/EventList';
 import * as paths from '../constants/paths';
 
 injectTapEventPlugin();

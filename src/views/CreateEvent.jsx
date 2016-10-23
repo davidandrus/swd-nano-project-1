@@ -1,6 +1,6 @@
 import React from 'react';
-import FormWrapper from './FormWrapper';
-import CreateEventForm from './CreateEventForm';
+import FormWrapper from '../components/FormWrapper';
+import CreateEventForm from '../components/CreateEventForm';
 
 function createForm() {
   console.log('createForm Called');
