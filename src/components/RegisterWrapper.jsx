@@ -1,11 +1,16 @@
 import React, { PropTypes } from 'react';
+import findIndex from 'lodash/findIndex';
 import { Stepper, Step, StepLabel } from 'material-ui/Stepper';
 import * as paths from '../constants/paths';
 import FormWrapper from './FormWrapper';
 
-export default function RegisterWrapper({ children, activePath }) {
-  const activeStep = activePath === paths.registerPath ? 0 : 1;
+const steps = [
+  paths.register,
+  paths.createProfile,
+];
 
+export default function RegisterWrapper({ children, activePath }) {
+  const activeStep = findIndex(steps, step => step === activePath);
   return (
     <FormWrapper>
       <Stepper activeStep={activeStep}>

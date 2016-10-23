@@ -86,7 +86,7 @@ export function RegisterForm({ handleSubmit, onSubmit }) {
       />
       <Field
         fullWidth
-        autocomplete="new-password"
+        autoComplete="new-password"
         component={TextField}
         floatingLabelText={<RequiredLabel text="Password" />}
         hintText="Enter Your Password"

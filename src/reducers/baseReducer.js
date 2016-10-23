@@ -5,6 +5,8 @@ const INITIAL_STATE = {
   createEvent: null,
   createEventLocation: null,
   createEventGuests: null,
+  profile: null,
+  register: null,
 };
 
 export default handleActions({
@@ -20,6 +22,12 @@ export default handleActions({
     ...state,
     createEventGuests: action.payload,
   }),
-
-
+  [actionTypes.register]: (state, action) => ({
+    ...state,
+    register: action.payload,
+  }),
+  [actionTypes.createProfile]: (state, action) => ({
+    ...state,
+    profile: action.payload,
+  }),
 }, INITIAL_STATE);
