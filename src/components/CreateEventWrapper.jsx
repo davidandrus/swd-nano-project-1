@@ -12,7 +12,6 @@ const steps = [
 
 export default function CreateEventWrapper({ children, activePath }) {
   const activeStep = findIndex(steps, step => step === activePath);
-  console.log(activeStep, activePath);
 
   return (
     <FormWrapper>
