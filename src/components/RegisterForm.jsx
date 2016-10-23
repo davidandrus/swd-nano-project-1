@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { TextField } from 'redux-form-material-ui';
 import RequiredLabel from './RequiredLabel';
 import { emailRegExp } from '../constants/regex';
+import { standardMarginBottom } from '../constants/styles';
 import { getters } from '../reducers';
 
 const nameMap = {
@@ -35,7 +36,7 @@ function validate(values) {
   const errors = {};
 
   // required fields;
-  ['name', 'email', 'password'].forEach(key => {
+  ['name', 'email', 'password'].forEach((key) => {
     if (!values[key]) {
       errors[key] = `${nameMap[key]} is required`;
     }
@@ -50,8 +51,8 @@ function validate(values) {
   }
 
   // make sure the required or length error passes through, before these specific password rules
-  if (! errors.password) {
-    passwordRules.forEach(rule => {
+  if (!errors.password) {
+    passwordRules.forEach((rule) => {
       if (!rule.test(values.password)) {
         errors.password = `${nameMap.password} must contain at least one lowercase letter, an uppercase letter,
           a number and one of the following special characters ${specialChars.join(',')}`;
@@ -93,6 +94,7 @@ export function RegisterForm({ handleSubmit, onSubmit }) {
         hintText="Enter Your Password"
         name="password"
         type="password"
+        style={standardMarginBottom}
       />
       <RaisedButton
         primary

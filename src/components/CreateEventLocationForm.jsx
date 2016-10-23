@@ -5,6 +5,7 @@ import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import RequiredLabel from './RequiredLabel';
 import { getters } from '../reducers';
+import { standardMarginBottom } from '../constants/styles';
 
 const nameMap = {
   'location-address': 'Street Address',
@@ -79,6 +80,7 @@ export function CreateEventLocationForm({ handleSubmit, onSubmit }) {
         hintText="Enter Zip Code"
         name="postal-code"
         type="text"
+        style={standardMarginBottom}
       />
 
       <RaisedButton

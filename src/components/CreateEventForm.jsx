@@ -5,7 +5,6 @@ import { reduxForm, Field } from 'redux-form';
 import { TextField, SelectField, DatePicker, TimePicker } from 'redux-form-material-ui';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import Chip from 'material-ui/Chip';
 import RequiredLabel from './RequiredLabel';
 import { getters } from '../reducers';
 
@@ -106,6 +105,7 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
         floatingLabelText={<RequiredLabel text={nameMap['event-name']} />}
         hintText="Enter the name of your event"
         name="event-name"
+        tabIndex={0}
         type="text"
       />
       {/*
@@ -119,6 +119,8 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
         component={SelectField}
         floatingLabelText={<RequiredLabel text={nameMap['event-type']} />}
         name="event-type"
+        tabIndex={0}
+        value=""
       >
         {eventTypeComponents}
       </Field>
@@ -129,6 +131,7 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
         hintText="Enter the name of your host"
         name="host"
         type="text"
+        tabIndex={0}
       />
       <div style={dateTimeWrapperStyle}>
         <Field
@@ -137,6 +140,7 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
           style={datePickerStyle}
           floatingLabelText={<RequiredLabel text={nameMap['start-date']} />}
           name="start-date"
+          tabIndex={0}
         />
         <Field
           fullWidth
@@ -144,6 +148,7 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
           floatingLabelText={<RequiredLabel text={nameMap['start-time']} />}
           style={timePickerStyle}
           name="start-time"
+          tabIndex={0}
         />
       </div>
       <div style={dateTimeWrapperStyle}>
@@ -153,6 +158,7 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
           floatingLabelText={<RequiredLabel text={nameMap['end-date']} />}
           name="end-date"
           style={datePickerStyle}
+          tabIndex={0}
         />
         <Field
           fullWidth
@@ -160,12 +166,14 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
           floatingLabelText={<RequiredLabel text={nameMap['end-time']} />}
           name="end-time"
           style={timePickerStyle}
+          tabIndex={0}
         />
       </div>
       <RaisedButton
         primary
         label="Continue"
         type="submit"
+        tabIndex={0}
       />
     </form>
   );
