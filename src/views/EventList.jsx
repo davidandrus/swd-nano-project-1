@@ -8,7 +8,6 @@ import {
   CardText,
 } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import LocationOn from 'material-ui/svg-icons/communication/location-on';
 import Chips from '../components/Chips';
 import { goToCreateEvent } from '../actions';
 import { getters } from '../reducers';
@@ -16,7 +15,63 @@ import {
   wrapperStyle,
   standardMarginBottom,
 } from '../constants/styles';
+import states from '../constants/states';
 
+const subTitleStyle = {
+  fontSize: '15px',
+};
+
+const eventDetailStyle = {
+  display: 'flex',
+  alignItems: 'flex-start',
+  lineHeight: '150%',
+  marginTop: '10px',
+};
+
+const eventDetailLabelStyle = {
+  flex: '0 0 6em',
+  textAlign: 'left',
+};
+
+const eventDetailValueStyle = {
+  fontWeight: 500,
+};
+
+function getSubTitleSection(label, value) {
+  return (
+    <span style={eventDetailStyle}>
+      <span style={eventDetailLabelStyle}>
+        {label}:
+      </span>
+      <span style={eventDetailValueStyle}>
+        {value}
+      </span>
+    </span>
+  );
+}
+
+function getSubTitle(event) {
+  return (
+    <span style={subTitleStyle}>
+      {getSubTitleSection('created by', event.creator)}
+      {getSubTitleSection('hosted by', event.host)}
+      {getSubTitleSection('event type', event['event-type'])}
+      {getSubTitleSection('start time', event.startDate)}
+      {getSubTitleSection('end time', event.endDate)}
+      {getSubTitleSection('location', (
+        <span>
+          {event['location-address']}<br />
+          {event['location-address-2'] &&
+            <span>
+              {event['location-address-2']}<br />
+            </span>
+          }
+          {event.city}, {states[event.state]} {event['postal-code']}
+        </span>
+      ))}
+    </span>
+  );
+}
 
 export function EventList({ events }) {
   return (
@@ -32,15 +87,7 @@ export function EventList({ events }) {
         >
           <CardTitle
             title={event['event-name']}
-            subtitle={
-              <span>
-                created by: {event.creator}<br />
-                hosted by: {event.host}<br />
-                event type: {event['event-type']}<br />
-                time: {event.startDate} to {event.endDate}<br /><br />
-                location: <LocationOn /> {event['location-address']} {event['location-address-2']} {event.city}, {event.state} {event['postal-code']}
-              </span>
-            }
+            subtitle={getSubTitle(event)}
           />
 
           <CardText>
