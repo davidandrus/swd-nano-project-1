@@ -15,4 +15,7 @@ export const getters = {
   getCreateFormValues: state => state.form.createEvent.values,
   getCreateLocationValues: state => state.form.createLocation.values,
   getCreateGuestsValues: state => state.form.createGuests.values,
+  getEvents: state => state.base.events,
+  getProfile: state => state.base.profile,
+  getRegister: state => state.base.register,
 };
