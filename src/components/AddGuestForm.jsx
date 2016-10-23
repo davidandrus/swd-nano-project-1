@@ -3,10 +3,11 @@ import { reduxForm, Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import { emailRegExp } from '../constants/regex';
+import { standardMarginBottom, standardMargin } from '../constants/styles';
 
 const inlineInputWrapper = {
   display: 'flex',
-  marginBottom: '20px',
+  ...standardMarginBottom,
 };
 
 const inlineInput = {
@@ -15,7 +16,7 @@ const inlineInput = {
 
 const inlineButton = {
   flex: '0 0 auto',
-  marginLeft: '20px',
+  marginLeft: standardMargin,
   paddingTop: '28px', // to offset hidden label area
 };
 
@@ -28,7 +29,6 @@ function validate(values) {
 
   return errors;
 }
-
 
 function AddGuestForm({ handleSubmit, onSubmit }) {
   return (
@@ -55,7 +55,6 @@ function AddGuestForm({ handleSubmit, onSubmit }) {
     </form>
   );
 }
-
 
 AddGuestForm.propTypes = {
   handleSubmit: PropTypes.func,

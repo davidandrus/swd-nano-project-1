@@ -1,22 +1,15 @@
+
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import Chip from 'material-ui/Chip';
 import TextField from 'material-ui/TextField';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import AddGuestForm from './AddGuestForm';
+import Chips from './Chips';
 import { getters } from '../reducers';
 import * as actions from '../actions';
-
-const chipContainer = {
-  marginBottom: '20px',
-};
-
-const chipWrapper = {
-  display: 'inline-block',
-  margin: '0 20px 20px 0',
-};
+import { standardMarginBottom } from '../constants/styles';
 
 export class CreateEventGuestsForm extends Component {
   constructor(...args) {
@@ -31,7 +24,6 @@ export class CreateEventGuestsForm extends Component {
   }
 
   _handleAddEmail(values) {
-    console.log('adding email', this.props);
     this.props.addGuest(values['guest-email']);
     this._addGuestForm.reset();
   }
@@ -42,6 +34,7 @@ export class CreateEventGuestsForm extends Component {
 
   render() {
     const requiredStyle = {
+      ...standardMarginBottom,
       color: this.props.muiTheme.textField.errorColor,
     };
 
@@ -51,19 +44,14 @@ export class CreateEventGuestsForm extends Component {
           onSubmit={this._handleAddEmail}
           ref={(form) => { this._addGuestForm = form; }}
         />
-        <div style={chipContainer}>
+        <div>
           {this.props.emails.length === 0 &&
             <div style={requiredStyle}>You must add at least one guest Email Address</div>
           }
-          {this.props.emails.map(email => (
-            <div
-              style={chipWrapper}
-              key={email}
-            >
-              {/* TODO - break into subcomponents to avoid the render binding */}
-              <Chip onRequestDelete={() => this.props.removeGuest(email)}>{email}</Chip>
-            </div>
-          ))}
+          <Chips
+            items={this.props.emails}
+            onDelete={this.props.removeGuest}
+          />
         </div>
 
         {this.props.emails.length > 0 &&
@@ -76,6 +64,7 @@ export class CreateEventGuestsForm extends Component {
             rows={2}
             value={this.props.message}
             onChange={this._handleMessageUpdate}
+            style={standardMarginBottom}
           />
         }
 
@@ -97,7 +86,12 @@ CreateEventGuestsForm.propTypes = {
       errorColor: PropTypes.string,
     }),
   }),
+  emails: PropTypes.arrayOf(PropTypes.object),
   onSubmit: PropTypes.func,
+  addGuest: PropTypes.func,
+  message: PropTypes.string,
+  removeGuest: PropTypes.func,
+  updateMessage: PropTypes.func,
 };
 
 const themed = muiThemeable()(CreateEventGuestsForm);

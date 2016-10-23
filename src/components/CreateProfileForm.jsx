@@ -4,6 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import { TextField, DatePicker } from 'redux-form-material-ui';
 import { getters } from '../reducers';
+import { standardMarginBottom } from '../constants/styles';
 
 export function CreateProfileForm({ handleSubmit, onSubmit }) {
   return (
@@ -43,6 +44,7 @@ export function CreateProfileForm({ handleSubmit, onSubmit }) {
         name="bio"
         rows={2}
         type="text"
+        style={standardMarginBottom}
       />
       <RaisedButton
         primary
