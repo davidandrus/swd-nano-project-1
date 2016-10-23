@@ -4,15 +4,12 @@
   "description": "Senior Web Developer Nanodegree Prjoject 1 - Meet-Up Event Planner",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test ava --verbose",
-    "test:watch": "npm run test -- --watch",
     "lint": "eslint ./src/** --ext .jsx --ext .js",
     "start": "babel-node devServer.js"
   },
   "keywords": [],
   "author": "David Andrus",
   "devDependencies": {
-    "ava": "^0.16.0",
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",
@@ -55,16 +52,6 @@
   },
   "engines": {
     "node": "6.4.0"
-  },
-  "ava": {
-    "files": [
-      "./src/**/*.test.js"
-    ],
-    "failFast": true,
-    "require": [
-      "babel-register"
-    ],
-    "babel": "inherit"
   },
   "license": "CC0-1.0"
 }
