@@ -20,6 +20,7 @@ const createProfileSync = getStandardAction(actionTypes.createProfile);
 const createEventSync = getStandardAction(actionTypes.createEvent);
 const createEventLocationSync = getStandardAction(actionTypes.createEventLocation);
 const createEventGuestsSync = getStandardAction(actionTypes.createEventGuests);
+const addEvent = getStandardAction(actionTypes.addEvent);
 
 export function register() {
   return (dispatch, getState) => {
@@ -49,9 +50,10 @@ export function createEventLocation(values) {
   };
 }
 
-export function createEventGuests(values) {
+export function addGuests(values) {
   return (dispatch) => {
     dispatch(createEventGuestsSync(values));
+    dispatch(addEvent());
     goToEvents();
   };
 }

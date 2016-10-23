@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import uniq from 'lodash/uniq';
 import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
+import TextField from 'material-ui/TextField';
 import AddGuestForm from './AddGuestForm';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 const chipContainer = {
   marginBottom: '20px',
@@ -13,13 +15,23 @@ const chipWrapper = {
   margin: '0 20px 20px 0',
 };
 
-export default class CreateEventGuestsForm extends Component {
+export class CreateEventGuestsForm extends Component {
   constructor(...args) {
     super(...args);
     this._handleAddEmail = this._handleAddEmail.bind(this);
+    this._handleMessageUpdate = this._handleMessageUpdate.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleEmailDelete = this._handleEmailDelete.bind(this);
     this.state = {
-      emails: []
+      emails: [],
+      message: '',
     };
+  }
+
+  _handleMessageUpdate(e) {
+    this.setState({
+      message: e.target.value,
+    });
   }
 
   _handleAddEmail(values) {
@@ -30,34 +42,63 @@ export default class CreateEventGuestsForm extends Component {
     });
   }
 
+  _handleEmailDelete(deletedEmail) {
+    this.setState({
+      emails: this.state.emails.filter(email => email !== deletedEmail)
+    });
+  }
+
+  _handleSubmit() {
+    this.props.onSubmit({
+      emails: this.state.emails,
+      message: this.state.message,
+    });
+  }
+
   render() {
-    console.log('rendering', this.state)
+    const requiredStyle = {
+      color: this.props.muiTheme.textField.errorColor,
+    };
+
     return (
       <div>
         <AddGuestForm
           onSubmit={this._handleAddEmail}
-          ref={form => this._addGuestForm = form}
+          ref={(form) => { this._addGuestForm = form; }}
         />
         <div style={chipContainer}>
           {this.state.emails.length === 0 &&
-            <div>You must add at least one guest Email Address</div>
+            <div style={requiredStyle}>You must add at least one guest Email Address</div>
           }
           {this.state.emails.map(email => (
             <div
               style={chipWrapper}
               key={email}
             >
-              <Chip onRequestDelete={() => { }}>{email}</Chip>
+              {/* TODO - break into subcomponents to avoid the render binding */}
+              <Chip onRequestDelete={() => this._handleEmailDelete(email)}>{email}</Chip>
             </div>
           ))}
-
         </div>
+
+        {this.state.emails.length > 0 &&
+          <TextField
+            autoFocus
+            multiLine
+            fullWidth
+            floatingLabelText="Message to Guests"
+            hintText="Message to Send Guests"
+            rows={2}
+            onChange={this._handleMessageUpdate}
+          />
+        }
 
         <RaisedButton
           primary
           disabled={this.state.emails.length === 0}
           label="Add Event"
           type="submit"
+          onClick={this._handleSubmit}
         />
       </div>
     );
@@ -65,6 +106,12 @@ export default class CreateEventGuestsForm extends Component {
 }
 
 CreateEventGuestsForm.propTypes = {
-  handleSubmit: PropTypes.func,
+  muiTheme: PropTypes.shape({
+    textField: PropTypes.shape({
+      errorColor: PropTypes.string,
+    }),
+  }),
   onSubmit: PropTypes.func,
 };
+
+export default muiThemeable()(CreateEventGuestsForm);
