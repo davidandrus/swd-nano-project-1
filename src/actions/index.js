@@ -1,14 +1,15 @@
-import { browserHistory } from 'react-router';
+import { push } from 'react-router-redux';
 import * as actionTypes from '../constants/actionTypes';
 import { getters } from '../reducers';
 import * as paths from '../constants/paths';
+import store from '../store/configureStore';
 
-export const goToCreateProfile = () => browserHistory.push(paths.createProfile);
-export const goToRegister = () => browserHistory.push(paths.register);
-export const goToEvents = () => browserHistory.push(paths.events);
-export const goToCreateEvent = () => browserHistory.push(paths.createEvent);
-export const goToCreateEventLocation = () => browserHistory.push(paths.createEventLocation);
-export const goToCreateEventGuests = () => browserHistory.push(paths.createEventGuests);
+export const goToCreateProfile = () => store.dispatch(push(paths.createProfile));
+export const goToRegister = () => store.dispatch(push(paths.register));
+export const goToEvents = () => store.dispatch(push(paths.events));
+export const goToCreateEvent = () => store.dispatch(push(paths.createEvent));
+export const goToCreateEventLocation = () => store.dispatch(push(paths.createEventLocation));
+export const goToCreateEventGuests = () => store.dispatch(push(paths.createEventGuests));
 
 const getStandardAction = name => payload => ({
   type: name,

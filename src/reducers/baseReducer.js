@@ -12,7 +12,6 @@ const INITIAL_STATE = {
   register: null,
 };
 
-
 export default handleActions({
   [actionTypes.createEvent]: (state, action) => ({
     ...state,
