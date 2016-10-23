@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { TextField } from 'redux-form-material-ui';
+import { TextField, SelectField } from 'redux-form-material-ui';
+import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import RequiredLabel from './RequiredLabel';
 import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
+import states from '../constants/states';
 
 const nameMap = {
   'location-address': 'Street Address',
@@ -32,6 +34,15 @@ function validate(values) {
 
   return errors;
 }
+
+const stateItems = Object.keys(states).map(type => (
+  <MenuItem
+    key={type}
+    value={type}
+    primaryText={states[type]}
+  />
+));
+
 
 export function CreateEventLocationForm({ handleSubmit, onSubmit }) {
   return (
@@ -65,13 +76,14 @@ export function CreateEventLocationForm({ handleSubmit, onSubmit }) {
       />
       <Field
         fullWidth
-        component={TextField}
         autoComplete="address-level1"
+        component={SelectField}
         floatingLabelText={<RequiredLabel text={nameMap.state} />}
         hintText="Enter State"
         name="state"
-        type="text"
-      />
+      >
+        {stateItems}
+      </Field>
       <Field
         fullWidth
         component={TextField}
