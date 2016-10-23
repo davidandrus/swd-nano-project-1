@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateEventForm from '../components/CreateEventForm';
+import CreateEventGuestsForm from '../components/CreateEventGuestsForm';
 import CreateEventWrapper from '../components/CreateEventWrapper';
 
 function createForm() {
@@ -9,7 +9,7 @@ function createForm() {
 export default function CreateEvent() {
   return (
     <CreateEventWrapper>
-      <CreateEventForm onSubmit={createForm} />
+      <CreateEventGuestsForm onSubmit={createForm} />
     </CreateEventWrapper>
   );
 }

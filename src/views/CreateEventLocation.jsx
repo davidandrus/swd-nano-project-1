@@ -1,15 +1,15 @@
 import React from 'react';
-import CreateEventForm from '../components/CreateEventForm';
+import CreateEventLocationForm from '../components/CreateEventLocationForm';
 import CreateEventWrapper from '../components/CreateEventWrapper';
 
 function createForm() {
   console.log('createForm Called');
 }
 
-export default function CreateEvent() {
+export default function CreateEventLocation() {
   return (
     <CreateEventWrapper>
-      <CreateEventForm onSubmit={createForm} />
+      <CreateEventLocationForm onSubmit={createForm} />
     </CreateEventWrapper>
   );
 }
