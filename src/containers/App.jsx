@@ -16,20 +16,20 @@ import { getters } from '../reducers';
 
 injectTapEventPlugin();
 
-const history = syncHistoryWithStore(browserHistory, store)
+const history = syncHistoryWithStore(browserHistory, store);
 
 const isRegistered = () => getters.getRegister(store.getState());
-const requireRegistration = replace => {
+const requireRegistration = (replace) => {
   if (!isRegistered()) replace(paths.register);
 };
 
-const requireCreateEvent = replace => {
+const requireCreateEvent = (replace) => {
   if (!getters.getCreateEvent(store.getState())) replace(paths.createEvent);
-}
+};
 
-const requireCreateEventLocation = replace => {
+const requireCreateEventLocation = (replace) => {
   if (!getters.getCreateEventLocation(store.getState())) replace(paths.createEventLocation);
-}
+};
 
 const enterHooks = {
   register(nextState, replace) {
@@ -38,19 +38,19 @@ const enterHooks = {
     }
   },
   createProfile(nextState, replace) {
-    requireRegistration(replace);
+    // requireRegistration(replace);
   },
   createEvent(nextState, replace) {
-    requireRegistration(replace);
+    // requireRegistration(replace);
   },
   createEventLocation(nextState, replace) {
-    requireRegistration(replace);
-    requireCreateEvent(replace);
+    // requireRegistration(replace);
+    // requireCreateEvent(replace);
   },
   createEventGuests(nextState, replace) {
-    requireRegistration(replace);
-    requireCreateEvent(replace);
-    requireCreateEventLocation(replace);
+    // requireRegistration(replace);
+    // requireCreateEvent(replace);
+    // requireCreateEventLocation(replace);
   },
 };
 

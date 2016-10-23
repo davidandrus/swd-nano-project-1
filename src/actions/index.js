@@ -53,7 +53,7 @@ export function createEventLocation(values) {
   };
 }
 
-export function addGuests(values) {
+export function addGuests() {
   return (dispatch) => {
     dispatch(addEvent());
     goToEvents();

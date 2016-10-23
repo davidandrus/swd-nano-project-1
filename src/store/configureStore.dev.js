@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistState } from 'redux-devtools';
 import createLogger from 'redux-logger';
