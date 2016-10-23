@@ -10,19 +10,16 @@ export const goToCreateEvent = () => browserHistory.push(paths.createEvent);
 export const goToCreateEventLocation = () => browserHistory.push(paths.createEventLocation);
 export const goToCreateEventGuests = () => browserHistory.push(paths.createEventGuests);
 
-
-const registerSync = payload => ({
+const getStandardAction = name => payload => ({
+  type: name,
   payload,
-  type: actionTypes.register,
 });
 
-const createProfileSync = payload => {
-  console.log('profile Sync Payload', actionTypes.createProfile, payload);
-  return {
-    payload,
-    type: actionTypes.createProfile
-  };
-}
+const registerSync = getStandardAction(actionTypes.register);
+const createProfileSync = getStandardAction(actionTypes.createProfile);
+const createEventSync = getStandardAction(actionTypes.createEvent);
+const createEventLocationSync = getStandardAction(actionTypes.createEventLocation);
+const createEventGuestsSync = getStandardAction(actionTypes.createEventGuests);
 
 export function register() {
   return (dispatch, getState) => {
@@ -38,16 +35,23 @@ export function createProfile() {
   };
 }
 
-export function createEvent() {
-  return (dispatch, getState) => {
-    dispatch(createProfileSync(getters.getCreateFormValues(getState())));
+export function createEvent(values) {
+  return (dispatch) => {
+    dispatch(createEventSync(values));
     goToCreateEventLocation();
   };
 }
 
-export function createEventLocation() {
-  return (dispatch, getState) => {
-    dispatch(createProfileSync(getters.getCreateLocationFormValues(getState())));
+export function createEventLocation(values) {
+  return (dispatch) => {
+    dispatch(createEventLocationSync(values));
     goToCreateEventGuests();
+  };
+}
+
+export function createEventGuests(values) {
+  return (dispatch) => {
+    dispatch(createEventGuestsSync(values));
+    goToEvents();
   };
 }

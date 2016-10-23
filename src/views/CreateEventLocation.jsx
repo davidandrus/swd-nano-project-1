@@ -12,7 +12,7 @@ export function CreateEventLocation({ activePath, createEventLocation }) {
   );
 }
 
-CreateEventLocation.PropTypes = {
+CreateEventLocation.propTypes = {
   activePath: PropTypes.string,
   createEventLocation: PropTypes.func,
 };
