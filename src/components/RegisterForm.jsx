@@ -3,6 +3,7 @@ import { reduxForm, Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import { TextField } from 'redux-form-material-ui';
 import RequiredLabel from './RequiredLabel';
+import { emailRegExp } from '../constants/regex';
 
 const nameMap = {
   name: 'Full Name',
@@ -10,8 +11,6 @@ const nameMap = {
   password: 'Password',
 };
 
-// http://stackoverflow.com/a/7786283/1830384 - using webkit regex
-const emailRegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*/;
 const specialChars = [
   '$',
   '^',
