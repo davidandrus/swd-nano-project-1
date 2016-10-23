@@ -1,66 +1,70 @@
-import React, { PropTypes } from 'react';
-import { reduxForm, Field } from 'redux-form';
-import { TextField } from 'redux-form-material-ui';
+import React, { Component, PropTypes } from 'react';
+import uniq from 'lodash/uniq';
 import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
+import AddGuestForm from './AddGuestForm';
 
-const nameMap = {
-  'location-address': 'Street Address',
-  'location-address-2': 'Suite/Apt',
-  city: 'City',
-  state: 'State',
-  'postal-code': 'Zip Code',
+const chipContainer = {
+  marginBottom: '20px',
 };
 
-function validate(values) {
-  const errors = [];
+const chipWrapper = {
+  display: 'inline-block',
+  margin: '0 20px 20px 0',
+};
 
-  // required fields
-  [
-    'location-address',
-    'city',
-    'state',
-    'postal-code',
-  ].forEach((key) => {
-    if (!values[key]) {
-      errors[key] = `${nameMap[key]} is required`;
-    }
-  });
+export default class CreateEventGuestsForm extends Component {
+  constructor(...args) {
+    super(...args);
+    this._handleAddEmail = this._handleAddEmail.bind(this);
+    this.state = {
+      emails: []
+    };
+  }
 
-  return errors;
-}
+  _handleAddEmail(values) {
+    this.setState({
+      emails: uniq([...this.state.emails, values['guest-email']]),
+    }, () => {
+      this._addGuestForm.reset();
+    });
+  }
 
-export function CreateEventGuestsForm({ handleSubmit, onSubmit }) {
-  return (
-
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+  render() {
+    console.log('rendering', this.state)
+    return (
       <div>
-        <h3>A guest List is required, you must add at least one guest to your list</h3>
-
-        <TextField
-          floatingLabelText="Add Guest"
-          hintText="Enter the name of your guest"
-          name="add-guest"
+        <AddGuestForm
+          onSubmit={this._handleAddEmail}
+          ref={form => this._addGuestForm = form}
         />
-        <RaisedButton secondary label="Add" />
-      </div>
-      <Chip onRequestDelete={() => {}}>email@email.com</Chip>
+        <div style={chipContainer}>
+          {this.state.emails.length === 0 &&
+            <div>You must add at least one guest Email Address</div>
+          }
+          {this.state.emails.map(email => (
+            <div
+              style={chipWrapper}
+              key={email}
+            >
+              <Chip onRequestDelete={() => { }}>{email}</Chip>
+            </div>
+          ))}
 
-      <RaisedButton
-        primary
-        label="Add Event"
-        type="submit"
-      />
-    </form>
-  );
+        </div>
+
+        <RaisedButton
+          primary
+          disabled={this.state.emails.length === 0}
+          label="Add Event"
+          type="submit"
+        />
+      </div>
+    );
+  }
 }
 
 CreateEventGuestsForm.propTypes = {
   handleSubmit: PropTypes.func,
   onSubmit: PropTypes.func,
 };
-
-export default reduxForm({
-  form: 'createEventGuests',
-  validate,
-})(CreateEventGuestsForm);
