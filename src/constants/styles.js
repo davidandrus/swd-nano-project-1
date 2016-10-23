@@ -5,7 +5,7 @@ export const standardMarginBottom = {
 };
 
 export const wrapperStyle = {
-  maxWidth: '500px',
+  maxWidth: '700px',
   margin: '0 auto',
   padding: standardMargin,
 };

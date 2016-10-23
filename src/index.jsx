@@ -5,5 +5,6 @@ import Root from './containers/Root';
 
 render(
   <Root store={store} />,
+  // eslint-disable-next-line no-undef
   document.getElementById('root')
 );

@@ -6,7 +6,7 @@ var assign = require('lodash/assign');
 module.exports = assign({}, base, {
   devtool: 'source-map',
   entry: [
-    './src/index',
+    './src/index.jsx',
   ],
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
