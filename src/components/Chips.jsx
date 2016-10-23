@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ChipItem from './ChipItem';
 
 export default function Chips({ items, onDelete }) {
@@ -14,3 +14,8 @@ export default function Chips({ items, onDelete }) {
     </div>
   );
 }
+
+Chips.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.string),
+  onDelete: PropTypes.func,
+};

@@ -24,37 +24,35 @@ export function EventList({ events }) {
       {events.length === 0 &&
         <h1>No Events Have Been Created Yet</h1>
       }
-      {events.map((event, index) => {
-        { /* Normally wouldn't use index here, but since it's a demo will make an exception */ }
-        return (
-          <Card
-            key={index}
-            style={standardMarginBottom}
-          >
-            <CardTitle
-              title={event['event-name']}
-              subtitle={
-                <span>
-                  created by: {event.creator}<br />
-                  hosted by: {event.host}<br />
-                  event type: {event['event-type']}<br />
-                  time: {event.startDate} to {event.endDate}<br /><br />
-                  location: <LocationOn /> {event['location-address']} {event['location-address-2']} {event.city}, {event.state} {event['postal-code']}
-                </span>
-              }
-            />
+      {/* normally wouldn't use index as key here, but since it's a demo going to let it go */}
+      {events.map((event, index) => (
+        <Card
+          key={index}
+          style={standardMarginBottom}
+        >
+          <CardTitle
+            title={event['event-name']}
+            subtitle={
+              <span>
+                created by: {event.creator}<br />
+                hosted by: {event.host}<br />
+                event type: {event['event-type']}<br />
+                time: {event.startDate} to {event.endDate}<br /><br />
+                location: <LocationOn /> {event['location-address']} {event['location-address-2']} {event.city}, {event.state} {event['postal-code']}
+              </span>
+            }
+          />
 
-            <CardText>
-              <div style={standardMarginBottom}>
-                <Chips items={event.emails} />
-              </div>
-              {event.message &&
-                <div>{event.message}</div>
-              }
-            </CardText>
-          </Card>
-        );
-      })}
+          <CardText>
+            <div style={standardMarginBottom}>
+              <Chips items={event.emails} />
+            </div>
+            {event.message &&
+              <div>{event.message}</div>
+            }
+          </CardText>
+        </Card>
+      ))}
 
       <RaisedButton
         primary

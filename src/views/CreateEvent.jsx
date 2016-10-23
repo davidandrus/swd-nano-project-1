@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import CreateEventForm from '../components/CreateEventForm';
 import CreateEventWrapper from '../components/CreateEventWrapper';
@@ -12,11 +12,12 @@ export function CreateEvent({ createEvent, activePath }) {
   );
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
-    activePath: ownProps.route.path,
-  };
+CreateEvent.propTypes = {
+  createEvent: PropTypes.func,
+  activePath: PropTypes.string,
 };
+
+const mapStateToProps = (state, ownProps) => ({ activePath: ownProps.route.path });
 
 export default connect(mapStateToProps, {
   createEvent: createEventAction,

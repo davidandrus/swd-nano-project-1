@@ -14,7 +14,7 @@ export function CreateEventGuests({ activePath, addGuests }) {
 
 CreateEventGuests.propTypes = {
   activePath: PropTypes.string,
-  addEvent: PropTypes.func,
+  addGuests: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => ({ activePath: ownProps.route.path });

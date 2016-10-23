@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { wrapperStyle } from '../constants/styles';
 
 export default function FormWrapper({ children }) {
@@ -8,3 +8,7 @@ export default function FormWrapper({ children }) {
     </div>
   );
 }
+
+FormWrapper.propTypes = {
+  children: PropTypes.node,
+};
