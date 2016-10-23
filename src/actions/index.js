@@ -20,8 +20,10 @@ const registerSync = getStandardAction(actionTypes.register);
 const createProfileSync = getStandardAction(actionTypes.createProfile);
 const createEventSync = getStandardAction(actionTypes.createEvent);
 const createEventLocationSync = getStandardAction(actionTypes.createEventLocation);
-const createEventGuestsSync = getStandardAction(actionTypes.createEventGuests);
 const addEvent = getStandardAction(actionTypes.addEvent);
+export const addGuest = getStandardAction(actionTypes.addGuest);
+export const removeGuest = getStandardAction(actionTypes.removeGuest);
+export const updateMessage = getStandardAction(actionTypes.updateMessage);
 
 export function register() {
   return (dispatch, getState) => {
@@ -53,7 +55,6 @@ export function createEventLocation(values) {
 
 export function addGuests(values) {
   return (dispatch) => {
-    dispatch(createEventGuestsSync(values));
     dispatch(addEvent());
     goToEvents();
   };

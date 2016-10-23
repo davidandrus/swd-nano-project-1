@@ -8,6 +8,7 @@ import {
   CardText,
 } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import Chip from 'material-ui/Chip';
 import LocationOn from 'material-ui/svg-icons/communication/location-on';
 import { goToCreateEvent } from '../actions';
 import { getters } from '../reducers';
@@ -18,9 +19,21 @@ const cardWrapper = {
   maxWidth: '500px',
 };
 
+const chipContainer = {
+  marginBottom: '20px',
+};
+
+const chipWrapper = {
+  display: 'inline-block',
+  margin: '0 20px 20px 0',
+};
+
 export function EventList({ events }) {
   return (
-    <div style={{ cardWrapper }}>
+    <div style={cardWrapper}>
+      {events.length === 0 &&
+        <h1>No Events Have Been Created Yet</h1>
+      }
       {events.map((event, index) => {
         { /* Normally wouldn't use index here, but since it's a demo will make an exception */ }
         return (
@@ -40,11 +53,22 @@ export function EventList({ events }) {
                 </span>
               }
             />
-            {event.message &&
-              <CardText>
-                {event.message}
-              </CardText>
-            }
+
+            <CardText>
+              <div style={chipContainer}>
+                {event.emails.map(email => (
+                  <div
+                    style={chipWrapper}
+                    key={email}
+                  >
+                    <Chip>{email}</Chip>
+                  </div>
+                ))}
+              </div>
+              {event.message &&
+                <div>{event.message}</div>
+              }
+            </CardText>
           </Card>
         );
       })}

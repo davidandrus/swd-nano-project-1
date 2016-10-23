@@ -4,3 +4,6 @@ export const createEvent = 'createEvent';
 export const createEventLocation = 'createEventLocation';
 export const createEventGuests = 'createEventGuests';
 export const addEvent = 'addEvent';
+export const addGuest = 'addGuest';
+export const removeGuest = 'removeGuest';
+export const updateMessage = 'updateMessage';

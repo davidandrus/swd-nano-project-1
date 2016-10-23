@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import uniq from 'lodash/uniq';
 import * as actionTypes from '../constants/actionTypes';
 
 const testEvent = {"event-name":"My Cool Event","event-type":"wedding","host":"My Awesome Host","start-date":"2016-10-23T06:16:49.050Z","start-time":"2016-10-23T06:16:51.237Z","end-date":"2016-10-23T06:16:52.656Z","end-time":"2016-10-23T06:16:54.737Z","location-address":"1900 NE 48th St.","location-address-2":"Unit A-103","city":"Lynnwood","state":"Washington","postal-code":"98056","emails":["djskatan@yahoo.com"],"message":"test"};
@@ -7,7 +8,10 @@ const INITIAL_STATE = {
   events: [testEvent],
   createEvent: null,
   createEventLocation: null,
-  createEventGuests: null,
+  createEventGuests: {
+    emails: [],
+    message: '',
+  },
   profile: null,
   register: null,
 };
@@ -41,8 +45,34 @@ export default handleActions({
       ...state.createEventLocation,
       ...state.createEventGuests,
     }],
-    createEvent: null,
-    createEventLocation: null,
-    createEventGuests: null,
+    createEvent: INITIAL_STATE.createEvent,
+    createEventLocation: INITIAL_STATE.createEventLocation,
+    createEventGuests: INITIAL_STATE.createEventGuests,
   }),
+
+  [actionTypes.addGuest]: (state, action) => {
+    return {
+      ...state,
+      createEventGuests: {
+        emails: uniq([...state.createEventGuests.emails, action.payload]),
+      },
+    };
+  },
+
+  [actionTypes.removeGuest]: (state, action) => ({
+    ...state,
+    createEventGuests: {
+      ...state.createEventGuests,
+      emails: state.createEventGuests.emails.filter(email => email !== action.payload),
+    },
+  }),
+
+  [actionTypes.updateMessage]: (state, action) => ({
+    ...state,
+    createEventGuests: {
+      ...state.createEventGuests,
+      message: action.payload,
+    },
+  }),
+
 }, INITIAL_STATE);
