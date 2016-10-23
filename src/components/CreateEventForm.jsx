@@ -1,11 +1,13 @@
 import moment from 'moment';
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { TextField, SelectField, DatePicker, TimePicker } from 'redux-form-material-ui';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
 import RequiredLabel from './RequiredLabel';
+import { getters } from '../reducers';
 
 const nameMap = {
   'event-name': 'Event Name',
@@ -174,7 +176,10 @@ CreateEventForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-export default reduxForm({
+const formified = reduxForm({
   form: 'createEvent',
   validate,
 })(CreateEventForm);
+
+const mapStateToProps = state => ({ initialValues: getters.getCreateEvent(state) });
+export default connect(mapStateToProps)(formified);

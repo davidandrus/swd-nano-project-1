@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import { TextField } from 'redux-form-material-ui';
 import RequiredLabel from './RequiredLabel';
 import { emailRegExp } from '../constants/regex';
+import { getters } from '../reducers';
 
 const nameMap = {
   name: 'Full Name',
@@ -106,7 +108,10 @@ RegisterForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-export default reduxForm({
+const formified = reduxForm({
   form: 'register',
   validate,
 })(RegisterForm);
+
+const mapStateToProps = state => ({ initialValues: getters.getRegister(state) });
+export default connect(mapStateToProps)(formified);

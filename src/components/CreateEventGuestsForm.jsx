@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import uniq from 'lodash/uniq';
 import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
 import TextField from 'material-ui/TextField';
 import AddGuestForm from './AddGuestForm';
 import muiThemeable from 'material-ui/styles/muiThemeable';
+import { getters } from '../reducers';
 
 const chipContainer = {
   marginBottom: '20px',
@@ -26,6 +28,15 @@ export class CreateEventGuestsForm extends Component {
       emails: [],
       message: '',
     };
+  }
+
+  componentWillMount() {
+    const { emails, message } = this.props;
+
+    this.setState({
+      emails: emails || this.state.emails,
+      message: message || this.state.emails,
+    })
   }
 
   _handleMessageUpdate(e) {
@@ -114,4 +125,6 @@ CreateEventGuestsForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-export default muiThemeable()(CreateEventGuestsForm);
+const themed = muiThemeable()(CreateEventGuestsForm);
+const mapStateToProps = state => ({ ...getters.getCreateEventGuests(state) });
+export default connect(mapStateToProps)(themed);
