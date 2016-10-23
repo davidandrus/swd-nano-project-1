@@ -1,8 +1,9 @@
 import { handleActions } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import * as actionTypes from '../constants/actionTypes';
+import { getters } from '../reducers';
 
-const testEvent = {"event-name":"My Cool Event","event-type":"wedding","host":"My Awesome Host","start-date":"2016-10-23T06:16:49.050Z","start-time":"2016-10-23T06:16:51.237Z","end-date":"2016-10-23T06:16:52.656Z","end-time":"2016-10-23T06:16:54.737Z","location-address":"1900 NE 48th St.","location-address-2":"Unit A-103","city":"Lynnwood","state":"Washington","postal-code":"98056","emails":["djskatan@yahoo.com"],"message":"test"};
+const testEvent = {"creator": "RIGHTON", "event-name":"My Cool Event","event-type":"wedding","host":"My Awesome Host","start-date":"2016-10-23T06:16:49.050Z","start-time":"2016-10-23T06:16:51.237Z","end-date":"2016-10-23T06:16:52.656Z","end-time":"2016-10-23T06:16:54.737Z","location-address":"1900 NE 48th St.","location-address-2":"Unit A-103","city":"Lynnwood","state":"Washington","postal-code":"98056","emails":["djskatan@yahoo.com"],"message":"test"};
 
 const INITIAL_STATE = {
   events: [testEvent],
@@ -41,6 +42,7 @@ export default handleActions({
   [actionTypes.addEvent]: state => ({
     ...state,
     events: [...state.events, {
+      creator: state.register.name,
       ...state.createEvent,
       ...state.createEventLocation,
       ...state.createEventGuests,

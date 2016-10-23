@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
+import get from 'lodash/get';
 import { reducer as formReducer } from 'redux-form';
-import { routerReducer } from 'react-router-redux'
+import { routerReducer } from 'react-router-redux';
 import base from './baseReducer';
 
 const rootReducer = combineReducers({
@@ -12,15 +13,15 @@ const rootReducer = combineReducers({
 export default rootReducer;
 
 export const getters = {
-  getRegisterFormValues: state => state.form.register.values,
-  getProfileFormValues: state => state.form.profile.values,
-  getCreateFormValues: state => state.form.createEvent.values,
-  getCreateLocationValues: state => state.form.createLocation.values,
-  getCreateGuestsValues: state => state.form.createGuests.values,
-  getEvents: state => state.base.events,
-  getProfile: state => state.base.profile,
-  getRegister: state => state.base.register,
-  getCreateEvent: state => state.base.createEvent,
-  getCreateEventLocation: state => state.base.createEventLocation,
-  getCreateEventGuests: state => state.base.createEventGuests,
+  getRegisterFormValues: state => get(state, 'form.register.values'),
+  getProfileFormValues: state => get(state, 'form.profile.values'),
+  getCreateFormValues: state => get(state, 'form.createEvent.values'),
+  getCreateLocationValues: state => get(state, 'form.createLocation.values'),
+  getCreateGuestsValues: state => get(state, 'form.createGuests.values'),
+  getEvents: state => get(state, 'base.events'),
+  getProfile: state => get(state, 'base.profile'),
+  getRegister: state => get(state, 'base.register'),
+  getCreateEvent: state => get(state, 'base.createEvent'),
+  getCreateEventLocation: state => get(state, 'base.createEventLocation'),
+  getCreateEventGuests: state => get(state, 'base.createEventGuests'),
 };

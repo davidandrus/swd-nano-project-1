@@ -45,7 +45,7 @@ export function EventList({ events }) {
               title={event['event-name']}
               subtitle={
                 <span>
-                  created by: {'@TODO TODO TODO'}<br />
+                  created by: {event.creator}<br />
                   hosted by: {event.host}<br />
                   event type: {event['event-type']}<br />
                   time: {event.startDate} to {event.endDate}<br /><br />
