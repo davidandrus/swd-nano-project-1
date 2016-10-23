@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import RequiredLabel from './RequiredLabel';
+import { getters } from '../reducers';
 
 const nameMap = {
   'location-address': 'Street Address',
@@ -93,7 +95,10 @@ CreateEventLocationForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-export default reduxForm({
+const formified = reduxForm({
   form: 'createEventLocation',
   validate,
 })(CreateEventLocationForm);
+
+const mapStateToProps = state => ({ initialValues: getters.getCreateEventLocation(state) });
+export default connect(mapStateToProps)(formified);

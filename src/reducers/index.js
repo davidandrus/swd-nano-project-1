@@ -20,4 +20,7 @@ export const getters = {
   getEvents: state => state.base.events,
   getProfile: state => state.base.profile,
   getRegister: state => state.base.register,
+  getCreateEvent: state => state.base.createEvent,
+  getCreateEventLocation: state => state.base.createEventLocation,
+  getCreateEventGuests: state => state.base.createEventGuests,
 };

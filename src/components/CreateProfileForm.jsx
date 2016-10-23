@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import { TextField, DatePicker } from 'redux-form-material-ui';
+import { getters } from '../reducers';
 
 export function CreateProfileForm({ handleSubmit, onSubmit }) {
   return (
@@ -56,6 +58,9 @@ CreateProfileForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-export default reduxForm({
+const formified = reduxForm({
   form: 'profile',
 })(CreateProfileForm);
+
+const mapStateToProps = state => ({ initialValues: getters.getProfile(state) });
+export default connect(mapStateToProps)(formified);
