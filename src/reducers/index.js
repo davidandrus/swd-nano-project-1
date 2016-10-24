@@ -24,4 +24,5 @@ export const getters = {
   getCreateEvent: state => get(state, 'base.createEvent'),
   getCreateEventLocation: state => get(state, 'base.createEventLocation'),
   getCreateEventGuests: state => get(state, 'base.createEventGuests'),
+  getForms: state => get(state, 'form'),
 };

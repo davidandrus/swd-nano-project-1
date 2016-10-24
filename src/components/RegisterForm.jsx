@@ -69,16 +69,17 @@ export function RegisterForm({ handleSubmit, onSubmit }) {
       <Field
         autoFocus
         fullWidth
+        required
         autoComplete="name"
         component={TextField}
         floatingLabelText={<RequiredLabel text="Full Name" />}
         hintText="Enter Your Full Name"
         name="name"
         type="text"
-        required
       />
       <Field
         fullWidth
+        required
         autoComplete="email"
         component={TextField}
         floatingLabelText={<RequiredLabel text="Email" />}
@@ -88,13 +89,14 @@ export function RegisterForm({ handleSubmit, onSubmit }) {
       />
       <Field
         fullWidth
+        required
         autoComplete="new-password"
         component={TextField}
         floatingLabelText={<RequiredLabel text="Password" />}
         hintText="Enter Your Password"
         name="password"
-        type="password"
         style={standardMarginBottom}
+        type="password"
       />
       <RaisedButton
         primary
