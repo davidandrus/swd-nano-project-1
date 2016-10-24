@@ -36,6 +36,7 @@ export class CreateEventGuestsForm extends Component {
     const requiredStyle = {
       ...standardMarginBottom,
       color: this.props.muiTheme.textField.errorColor,
+      marginTop: '10px',
     };
 
     return (
@@ -46,7 +47,7 @@ export class CreateEventGuestsForm extends Component {
         />
         <div>
           {this.props.emails.length === 0 &&
-            <div style={requiredStyle}>You must add at least one guest Email Address</div>
+            <h3 style={requiredStyle}>You must add at least one guest Email Address</h3>
           }
           <Chips
             items={this.props.emails}

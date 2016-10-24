@@ -8,7 +8,7 @@ export default function Root({ store }) {
     <Provider store={store}>
       <div>
         <App />
-        <DevTools />
+        {/* <DevTools /> */}
       </div>
     </Provider>
   );

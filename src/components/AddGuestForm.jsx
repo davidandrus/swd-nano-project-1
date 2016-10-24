@@ -24,7 +24,7 @@ function validate(values) {
   const errors = [];
 
   if (!emailRegExp.test(values['guest-email'])) {
-    errors['guest-email'] = 'Guest Email is not a valid email address';
+    errors['guest-email'] = 'Invalid email';
   }
 
   return errors;

@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import findIndex from 'lodash/findIndex';
-import { Stepper, Step, StepLabel } from 'material-ui/Stepper';
+import { Stepper, Step, StepLabel, StepContent } from 'material-ui/Stepper';
 import * as paths from '../constants/paths';
 import FormWrapper from './FormWrapper';
+import { standardMargin } from '../constants/styles';
 
 const steps = [
   paths.createEvent,
@@ -10,24 +11,37 @@ const steps = [
   paths.createEventGuests,
 ];
 
+const headerStyles = {
+  marginLeft: standardMargin,
+};
+
+const getContent = (step, activeStep, children) => (
+  <StepContent>{step === activeStep ? children : ''}</StepContent>
+);
+
 export default function CreateEventWrapper({ children, activePath }) {
   const activeStep = findIndex(steps, step => step === activePath);
 
   return (
     <FormWrapper>
-      <h1>Create Event</h1>
-      <Stepper activeStep={activeStep}>
+      <h1 style={headerStyles}>Create New Event</h1>
+      <Stepper
+        activeStep={activeStep}
+        orientation="vertical"
+      >
         <Step>
           <StepLabel>Event Info</StepLabel>
+          {getContent(0, activeStep, children)}
         </Step>
         <Step>
           <StepLabel>Location</StepLabel>
+          {getContent(1, activeStep, children)}
         </Step>
         <Step>
           <StepLabel>Add Guests</StepLabel>
+          {getContent(2, activeStep, children)}
         </Step>
       </Stepper>
-      { children }
     </FormWrapper>
   );
 }
