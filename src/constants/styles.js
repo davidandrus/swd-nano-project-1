@@ -10,6 +10,11 @@ export const wrapperStyle = {
   padding: standardMargin,
 };
 
+export const formWrapperStyle = {
+  ...wrapperStyle,
+  padding: `${standardMargin} 0`,
+};
+
 export const chipWrapper = {
   display: 'inline-block',
   margin: `0 ${standardMargin} ${standardMargin} 0`,
