@@ -2,11 +2,13 @@ import moment from 'moment';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { TextField, SelectField, DatePicker, TimePicker } from 'redux-form-material-ui';
+import { TextField, SelectField, TimePicker } from 'redux-form-material-ui';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import RequiredLabel from './RequiredLabel';
+import DatePickerField from './DatePickerField';
 import { getters } from '../reducers';
+
 
 const nameMap = {
   'event-name': 'Event Name',
@@ -131,13 +133,12 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
         type="text"
       />
       <div style={dateTimeWrapperStyle}>
-        <Field
-          fullWidth
-          component={DatePicker}
-          style={datePickerStyle}
-          floatingLabelText={<RequiredLabel text={nameMap['start-date']} />}
-          name="start-date"
-        />
+        <div style={datePickerStyle}>
+          <DatePickerField
+            floatingLabelText={<RequiredLabel text={nameMap['start-date']} />}
+            name="start-date"
+          />
+        </div>
         <Field
           fullWidth
           component={TimePicker}
@@ -147,13 +148,13 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
         />
       </div>
       <div style={dateTimeWrapperStyle}>
-        <Field
-          fullWidth
-          component={DatePicker}
-          floatingLabelText={<RequiredLabel text={nameMap['end-date']} />}
-          name="end-date"
-          style={datePickerStyle}
-        />
+        <div style={datePickerStyle}>
+          <DatePickerField
+            floatingLabelText={<RequiredLabel text={nameMap['end-date']} />}
+            name="end-date"
+            style={datePickerStyle}
+          />
+        </div>
         <Field
           fullWidth
           component={TimePicker}
