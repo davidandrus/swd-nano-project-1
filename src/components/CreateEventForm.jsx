@@ -93,19 +93,16 @@ function validate(values) {
 }
 
 export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
-
-  console.log('rendering with currentValues', currentValues);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Field
         autoFocus
         fullWidth
+        required
         component={TextField}
         floatingLabelText={<RequiredLabel text={nameMap['event-name']} />}
         hintText="Enter the name of your event"
         name="event-name"
-        tabIndex={0}
         type="text"
       />
       {/*
@@ -116,6 +113,7 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
       {/* @TODO - make more event types */}
       <Field
         fullWidth
+        required
         component={SelectField}
         floatingLabelText={<RequiredLabel text={nameMap['event-type']} />}
         name="event-type"
@@ -125,6 +123,7 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
       <Field
         fullWidth
         component={TextField}
+        required
         floatingLabelText={<RequiredLabel text={nameMap.host} />}
         hintText="Enter the name of your host"
         name="host"
@@ -133,14 +132,16 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
       <DateTime
         date={
           <DatePickerField
-            floatingLabelText={<RequiredLabel text={`${nameMap['start-date']} mm/dd/yyyy`} />}
+            required
+            floatingLabelText={<RequiredLabel text={`${nameMap['start-date']}: e.g. 01/01/2000`} />}
             name="start-date"
             currentValue={currentValues['start-date']}
           />
         }
         time={
           <TimePickerField
-            floatingLabelText={<RequiredLabel text={nameMap['start-time']} />}
+            required
+            floatingLabelText={<RequiredLabel text={`${nameMap['start-time']} e.g. 01:00 PM`} />}
             name="start-time"
             currentValue={currentValues['start-time']}
           />
@@ -150,14 +151,16 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
         style={standardMarginBottom}
         date={
           <DatePickerField
-            floatingLabelText={<RequiredLabel text={`${nameMap['end-date']} mm/dd/yyyy`} />}
+            required
+            floatingLabelText={<RequiredLabel text={`${nameMap['end-date']} e.g. 01/01/2000`} />}
             name="end-date"
             currentValue={currentValues['end-date']}
           />
         }
         time={
           <TimePickerField
-            floatingLabelText={<RequiredLabel text={nameMap['end-time']} />}
+            required
+            floatingLabelText={<RequiredLabel text={`${nameMap['end-time']} e.g. 01:00 PM`} />}
             name="end-time"
             currentValue={currentValues['end-time']}
           />
@@ -173,6 +176,8 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
 }
 
 CreateEventForm.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  currentValues: PropTypes.object,
   handleSubmit: PropTypes.func,
   onSubmit: PropTypes.func,
 };
