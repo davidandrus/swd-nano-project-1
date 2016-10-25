@@ -49,8 +49,9 @@ export function CreateEventLocationForm({ handleSubmit, onSubmit }) {
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Field
         fullWidth
+        required
+        autoComplete="address-line1"
         component={TextField}
-        autoComplete="street-address"
         floatingLabelText={<RequiredLabel text={nameMap['location-address']} />}
         hintText="Enter Street Adress"
         name="location-address"
@@ -58,8 +59,8 @@ export function CreateEventLocationForm({ handleSubmit, onSubmit }) {
       />
       <Field
         fullWidth
-        component={TextField}
         autoComplete="address-line2"
+        component={TextField}
         floatingLabelText={nameMap['location-address-2']}
         hintText="Enter Apt/Suite Number"
         name="location-address-2"
@@ -67,8 +68,9 @@ export function CreateEventLocationForm({ handleSubmit, onSubmit }) {
       />
       <Field
         fullWidth
-        component={TextField}
+        required
         autoComplete="address-level2"
+        component={TextField}
         floatingLabelText={<RequiredLabel text={nameMap.city} />}
         hintText="Enter City"
         name="city"
@@ -76,6 +78,7 @@ export function CreateEventLocationForm({ handleSubmit, onSubmit }) {
       />
       <Field
         fullWidth
+        required
         autoComplete="address-level1"
         component={SelectField}
         floatingLabelText={<RequiredLabel text={nameMap.state} />}
@@ -86,8 +89,9 @@ export function CreateEventLocationForm({ handleSubmit, onSubmit }) {
       </Field>
       <Field
         fullWidth
-        component={TextField}
+        required
         autoComplete="postal-code"
+        component={TextField}
         floatingLabelText={<RequiredLabel text={nameMap['postal-code']} />}
         hintText="Enter Zip Code"
         name="postal-code"

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-find-dom-node */
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
@@ -45,7 +44,7 @@ function CreateProfileForm({ handleSubmit, onSubmit, currentValues }) {
       />
       <DatePickerField
         autoComplete="bday"
-        floatingLabelText="Birth Date mm/dd/yyyy"
+        floatingLabelText="Birth Date e.g. 01/01/2000"
         name="birth-date"
         currentValue={currentValues['birth-date']}
       />

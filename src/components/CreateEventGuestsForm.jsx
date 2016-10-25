@@ -1,4 +1,3 @@
-
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -62,10 +61,10 @@ export class CreateEventGuestsForm extends Component {
             fullWidth
             floatingLabelText="Message to Guests"
             hintText="Message to Send Guests"
-            rows={2}
-            value={this.props.message}
             onChange={this._handleMessageUpdate}
+            rows={2}
             style={standardMarginBottom}
+            value={this.props.message}
           />
         }
 
