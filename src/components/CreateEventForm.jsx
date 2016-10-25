@@ -16,7 +16,8 @@ import RequiredLabel from './RequiredLabel';
 import DatePickerField from './DatePickerField';
 import TimePickerField from './TimePickerField';
 import { getters } from '../reducers';
-
+import { standardMarginBottom } from '../constants/styles';
+import DateTime from './DateTime';
 
 const nameMap = {
   'event-name': 'Event Name',
@@ -91,20 +92,6 @@ function validate(values) {
   return errors;
 }
 
-const dateTimeWrapperStyle = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  maxWidth: '100%',
-};
-
-const datePickerStyle = {
-  flex: '0 0 48%',
-};
-
-const timePickerStyle = {
-  flex: '0 0 48%',
-};
-
 export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
 
   console.log('rendering with currentValues', currentValues);
@@ -143,38 +130,39 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
         name="host"
         type="text"
       />
-      <div style={dateTimeWrapperStyle}>
-        <div style={datePickerStyle}>
+      <DateTime
+        date={
           <DatePickerField
             floatingLabelText={<RequiredLabel text={`${nameMap['start-date']} mm/dd/yyyy`} />}
             name="start-date"
             currentValue={currentValues['start-date']}
           />
-        </div>
-        <div style={timePickerStyle}>
+        }
+        time={
           <TimePickerField
             floatingLabelText={<RequiredLabel text={nameMap['start-time']} />}
             name="start-time"
             currentValue={currentValues['start-time']}
           />
-        </div>
-      </div>
-      <div style={dateTimeWrapperStyle}>
-        <div style={datePickerStyle}>
+        }
+      />
+      <DateTime
+        style={standardMarginBottom}
+        date={
           <DatePickerField
             floatingLabelText={<RequiredLabel text={`${nameMap['end-date']} mm/dd/yyyy`} />}
             name="end-date"
             currentValue={currentValues['end-date']}
           />
-        </div>
-        <div style={timePickerStyle}>
+        }
+        time={
           <TimePickerField
             floatingLabelText={<RequiredLabel text={nameMap['end-time']} />}
             name="end-time"
             currentValue={currentValues['end-time']}
           />
-        </div>
-      </div>
+        }
+      />
       <RaisedButton
         primary
         label="Continue"
