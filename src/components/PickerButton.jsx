@@ -3,6 +3,7 @@ import React, {
   Component,
   PropTypes,
 } from 'react';
+import moment from 'moment';
 import IconButton from 'material-ui/IconButton';
 
 export default class PickerButton extends Component {
@@ -18,6 +19,7 @@ export default class PickerButton extends Component {
   render() {
     const dialog = cloneElement(this.props.dialog, {
       ref: (element) => { this._dialog = element; },
+      value: moment(this.props.currentValue),
     });
 
     return (
@@ -33,5 +35,6 @@ export default class PickerButton extends Component {
 
 PickerButton.propTypes = {
   icon: PropTypes.node,
+  currentValue: PropTypes.string,
   dialog: PropTypes.node,
 };

@@ -1,8 +1,15 @@
 import moment from 'moment';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
-import { TextField, SelectField, TimePicker } from 'redux-form-material-ui';
+import {
+  reduxForm,
+  Field,
+} from 'redux-form';
+import get from 'lodash/get';
+import {
+  TextField,
+  SelectField,
+} from 'redux-form-material-ui';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import RequiredLabel from './RequiredLabel';
@@ -98,7 +105,10 @@ const timePickerStyle = {
   flex: '0 0 48%',
 };
 
-export function CreateEventForm({ handleSubmit, onSubmit }) {
+export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
+
+  console.log('rendering with currentValues', currentValues);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Field
@@ -138,12 +148,14 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
           <DatePickerField
             floatingLabelText={<RequiredLabel text={`${nameMap['start-date']} mm/dd/yyyy`} />}
             name="start-date"
+            currentValue={currentValues['start-date']}
           />
         </div>
         <div style={timePickerStyle}>
           <TimePickerField
             floatingLabelText={<RequiredLabel text={nameMap['start-time']} />}
             name="start-time"
+            currentValue={currentValues['start-time']}
           />
         </div>
       </div>
@@ -152,14 +164,14 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
           <DatePickerField
             floatingLabelText={<RequiredLabel text={`${nameMap['end-date']} mm/dd/yyyy`} />}
             name="end-date"
-            style={datePickerStyle}
-            type="time"
+            currentValue={currentValues['end-date']}
           />
         </div>
         <div style={timePickerStyle}>
           <TimePickerField
             floatingLabelText={<RequiredLabel text={nameMap['end-time']} />}
             name="end-time"
+            currentValue={currentValues['end-time']}
           />
         </div>
       </div>
@@ -182,5 +194,8 @@ const formified = reduxForm({
   validate,
 })(CreateEventForm);
 
-const mapStateToProps = state => ({ initialValues: getters.getCreateEvent(state) });
+const mapStateToProps = state => ({
+  initialValues: getters.getCreateEvent(state),
+  currentValues: get(getters.getForms(state), 'createEvent.values', {}),
+});
 export default connect(mapStateToProps)(formified);
