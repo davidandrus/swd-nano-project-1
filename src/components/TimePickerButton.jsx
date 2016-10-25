@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import IconButton from 'material-ui/IconButton';
-import DateRange from 'material-ui/svg-icons/action/date-range';
-import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
+import Schedule from 'material-ui/svg-icons/action/schedule';
+import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 
-export default class DatePickerButton extends Component {
+export default class TimePickerButton extends Component {
   constructor(...args) {
     super(...args);
     this._openDialog = this._openDialog.bind(this);
@@ -14,17 +14,15 @@ export default class DatePickerButton extends Component {
   }
 
   render() {
-    const { onSelect, allowFutureDates } = this.props;
+    const { onSelect } = this.props;
 
     return (
       <div>
         <IconButton onClick={this._openDialog}>
-          <DateRange />
+          <Schedule />
         </IconButton>
-        <DatePickerDialog
-          firstDayOfWeek={1}
+        <TimePickerDialog
           onAccept={onSelect}
-          maxDate={!allowFutureDates ? new Date() : undefined}
           ref={(dialog) => { this._dialog = dialog; }}
         />
       </div>
@@ -32,7 +30,6 @@ export default class DatePickerButton extends Component {
   }
 }
 
-DatePickerButton.propTypes = {
+TimePickerButton.propTypes = {
   onSelect: PropTypes.func.isRequired,
-  allowFutureDates: PropTypes.bool,
 };

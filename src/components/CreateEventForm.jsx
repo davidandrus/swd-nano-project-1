@@ -7,6 +7,7 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import RequiredLabel from './RequiredLabel';
 import DatePickerField from './DatePickerField';
+import TimePickerField from './TimePickerField';
 import { getters } from '../reducers';
 
 
@@ -135,33 +136,32 @@ export function CreateEventForm({ handleSubmit, onSubmit }) {
       <div style={dateTimeWrapperStyle}>
         <div style={datePickerStyle}>
           <DatePickerField
-            floatingLabelText={<RequiredLabel text={nameMap['start-date']} />}
+            floatingLabelText={<RequiredLabel text={`${nameMap['start-date']} mm/dd/yyyy`} />}
             name="start-date"
           />
         </div>
-        <Field
-          fullWidth
-          component={TimePicker}
-          floatingLabelText={<RequiredLabel text={nameMap['start-time']} />}
-          style={timePickerStyle}
-          name="start-time"
-        />
+        <div style={timePickerStyle}>
+          <TimePickerField
+            floatingLabelText={<RequiredLabel text={nameMap['start-time']} />}
+            name="start-time"
+          />
+        </div>
       </div>
       <div style={dateTimeWrapperStyle}>
         <div style={datePickerStyle}>
           <DatePickerField
-            floatingLabelText={<RequiredLabel text={nameMap['end-date']} />}
+            floatingLabelText={<RequiredLabel text={`${nameMap['end-date']} mm/dd/yyyy`} />}
             name="end-date"
             style={datePickerStyle}
+            type="time"
           />
         </div>
-        <Field
-          fullWidth
-          component={TimePicker}
-          floatingLabelText={<RequiredLabel text={nameMap['end-time']} />}
-          name="end-time"
-          style={timePickerStyle}
-        />
+        <div style={timePickerStyle}>
+          <TimePickerField
+            floatingLabelText={<RequiredLabel text={nameMap['end-time']} />}
+            name="end-time"
+          />
+        </div>
       </div>
       <RaisedButton
         primary
