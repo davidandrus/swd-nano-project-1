@@ -8,19 +8,18 @@ import { findDOMNode } from 'react-dom';
 import moment from 'moment';
 import { Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
-import TimePickerButton from './TimePickerButton';
 
-const datePickerWrapper = {
+const pickerWrapper = {
   alignItems: 'flex-start',
   display: 'flex',
 };
 
-const datePickerButtonWrapper = {
+const pickerButtonWrapper = {
   flex: '0 0 40px',
   paddingTop: '22px',
 };
 
-const datePickerFieldWrapper = {
+const pickerFieldWrapper = {
   flex: '999 0 auto',
 };
 
@@ -55,6 +54,8 @@ export default class PickerField extends Component {
   render() {
     const {
       button,
+      currentValue,
+      name,
       type,
       /* eslint-disable no-unused-vars */
       // destructuring these out so they are not passed to Field
@@ -65,12 +66,13 @@ export default class PickerField extends Component {
     } = this.props;
 
     const buttonContent = createElement(button, {
+      currentValue,
       onSelect: this._updateInput,
     });
 
     return (
-      <div style={datePickerWrapper}>
-        <div style={datePickerFieldWrapper}>
+      <div style={pickerWrapper}>
+        <div style={pickerFieldWrapper}>
           <Field
             {...extraProps}
             floatingLabelFixed
@@ -78,13 +80,23 @@ export default class PickerField extends Component {
             withRef
             component={TextField}
             type={type}
+            name={name}
             ref={(input) => { this._input = input; }}
           />
         </div>
-        <div style={datePickerButtonWrapper}>
+        <div style={pickerButtonWrapper}>
           {buttonContent}
         </div>
       </div>
     );
   }
 }
+
+PickerField.propTypes = {
+  name: PropTypes.string.isRequired,
+  currentValue: PropTypes.string,
+  button: PropTypes.func,
+  modernFormat: PropTypes.string,
+  legacyFormat: PropTypes.string,
+  type: PropTypes.string,
+};

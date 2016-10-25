@@ -1,8 +1,9 @@
 /* eslint-disable react/no-find-dom-node */
-import moment from 'moment';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import moment from 'moment';
+import get from 'lodash/get';
 import RaisedButton from 'material-ui/RaisedButton';
 import { TextField } from 'redux-form-material-ui';
 import { getters } from '../reducers';
@@ -22,7 +23,7 @@ function validate(values) {
   return errors;
 }
 
-function CreateProfileForm({ handleSubmit, onSubmit }) {
+function CreateProfileForm({ handleSubmit, onSubmit, currentValues }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Field
@@ -46,6 +47,7 @@ function CreateProfileForm({ handleSubmit, onSubmit }) {
         autoComplete="bday"
         floatingLabelText="Birth Date mm/dd/yyyy"
         name="birth-date"
+        currentValue={currentValues['birth-date']}
       />
       <Field
         fullWidth
@@ -68,6 +70,7 @@ function CreateProfileForm({ handleSubmit, onSubmit }) {
 }
 
 CreateProfileForm.propTypes = {
+  currentValues: PropTypes.shape({}),
   handleSubmit: PropTypes.func,
   onSubmit: PropTypes.func,
 };
@@ -77,5 +80,8 @@ const formified = reduxForm({
   validate,
 })(CreateProfileForm);
 
-const mapStateToProps = state => ({ initialValues: getters.getProfile(state) });
+const mapStateToProps = state => ({
+  initialValues: getters.getProfile(state),
+  currentValues: get(getters.getForms(state), 'profile.values', {}),
+});
 export default connect(mapStateToProps)(formified);
