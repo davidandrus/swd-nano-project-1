@@ -1,4 +1,8 @@
-import React, { cloneElement, Component, PropTypes } from 'react';
+import React, {
+  cloneElement,
+  Component,
+  PropTypes,
+} from 'react';
 import IconButton from 'material-ui/IconButton';
 
 export default class PickerButton extends Component {
