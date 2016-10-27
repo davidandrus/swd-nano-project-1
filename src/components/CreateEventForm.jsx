@@ -8,7 +8,7 @@ import {
 import get from 'lodash/get';
 import {
   TextField,
-  SelectField,
+  // SelectField,
 } from 'redux-form-material-ui';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -18,6 +18,7 @@ import TimePickerField from './TimePickerField';
 import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
 import DateTime from './DateTime';
+import SelectField from './SelectField';
 
 const nameMap = {
   'event-name': 'Event Name',
@@ -96,7 +97,6 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Field
-        autoFocus
         fullWidth
         required
         component={TextField}
@@ -116,10 +116,20 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
         required
         component={SelectField}
         floatingLabelText={<RequiredLabel text={nameMap['event-type']} />}
+        hintText="Select an Event Type"
+        name="event-type"
+      />
+      {/*
+      <Field
+        fullWidth
+        required
+        component={SelectField}
+        floatingLabelText={<RequiredLabel text={nameMap['event-type']} />}
         name="event-type"
       >
         {eventTypeComponents}
       </Field>
+      */}
       <Field
         fullWidth
         component={TextField}

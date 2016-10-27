@@ -12,9 +12,9 @@
         width: 100%;
       }
 
-      body * {
+      /*body * {
         box-sizing: border-box;
-      }
+      }*/
 
       h1, h2, h3 {
         margin-top: 0;
@@ -52,6 +52,11 @@
       /* prevent the required asterisk from being red until form is focused */
       label[style*="scale(1)"] span span {
         color: inherit !important;
+      }
+
+      select {
+        -webkit-appearance: textfield;
+        -moz-appearance: textfield;
       }
 
     </style>
