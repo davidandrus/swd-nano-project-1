@@ -94,12 +94,6 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
         name="event-name"
         type="text"
       />
-      {/*
-        @TODO - https://github.com/callemall/material-ui/issues/714
-        is not keyboard focusable, maybe make pr to fix, or make a work around with a offscreen text
-        field that when focused will open the dropdown
-      */}
-      {/* @TODO - make more event types */}
       <Field
         fullWidth
         required
@@ -109,17 +103,6 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
         name="event-type"
         options={eventTypeOptions}
       />
-      {/*
-      <Field
-        fullWidth
-        required
-        component={SelectField}
-        floatingLabelText={<RequiredLabel text={nameMap['event-type']} />}
-        name="event-type"
-      >
-        {eventTypeComponents}
-      </Field>
-      */}
       <Field
         fullWidth
         component={TextField}
