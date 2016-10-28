@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
-import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import RequiredLabel from './RequiredLabel';
 import { getters } from '../reducers';
