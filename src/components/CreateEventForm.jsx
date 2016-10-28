@@ -33,13 +33,10 @@ const eventTypes = {
   wedding: 'Wedding',
 };
 
-const eventTypeComponents = Object.keys(eventTypes).map(type => (
-  <MenuItem
-    key={type}
-    value={type}
-    primaryText={eventTypes[type]}
-  />
-));
+const eventTypeOptions = Object.keys(eventTypes).map(type => ({
+  value: type,
+  label: eventTypes[type],
+}));
 
 const hasDateError = errors => !!(errors['start-date'] ||
   errors['start-time'] ||
@@ -115,6 +112,7 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
         floatingLabelText={<RequiredLabel text={nameMap['event-type']} />}
         hintText="Select an Event Type"
         name="event-type"
+        options={eventTypeOptions}
       />
       {/*
       <Field
