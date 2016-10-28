@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React, { Component, PropTypes } from 'react';
-import get from 'lodash/get';
 import TextFieldUnderline from 'material-ui/TextField/TextFieldUnderline';
 import TextFieldLabel from 'material-ui/TextField/TextFieldLabel';
 import TextFieldHint from 'material-ui/TextField/TextFieldHint';
@@ -9,7 +8,9 @@ import { fade } from 'material-ui/utils/colorManipulator';
 import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 
 /**
- *  @NOTE - most everything in this file is copied from, and modified to work with a native SelectField
+ *  @NOTE - most everything in this file is copied from material ui TextField,
+ *  and modified to work with a native Select input, it however does not include
+ *  all of the funtionality of the original
  *  https://github.com/callemall/material-ui/blob/master/src/TextField/TextField.js
  *
  * it should also be noted that this has been made to be compatible with react-redux-form as well
@@ -210,6 +211,7 @@ export default class SelectField extends Component {
       onBlur, // eslint-disable-line no-unused-vars
       onChange, // eslint-disable-line no-unused-vars
       onFocus, // eslint-disable-line no-unused-vars
+      options,
       style,
       underlineDisabledStyle,
       underlineFocusStyle,
@@ -284,7 +286,15 @@ export default class SelectField extends Component {
         >
           {/* make sure that input shows as empty initially */}
           {!this.state.hasValue && <option value="" />}
-          <option value="it works">Ite works yo</option>
+          {options.map(({ label, value }) => (
+            <option
+              key={value}
+              value={value}
+            >
+              {label}
+            </option>
+          ))}
+
         </select>
         <ArrowDown style={customStyles.icon} />
         {underlineShow ?
@@ -309,6 +319,13 @@ export default class SelectField extends Component {
 SelectField.contextTypes = {
   muiTheme: PropTypes.object.isRequired,
 };
+
+SelectField.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.string,
+  }))
+}
 
 SelectField.defaultProps = {
   underlineShow: true,
