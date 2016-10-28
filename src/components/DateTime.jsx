@@ -29,7 +29,7 @@ export default function DateTime({ date, time, style }) {
                 display: flex;
               }
             }
-          `
+          `,
         }}
       />
       <div
@@ -55,4 +55,4 @@ DateTime.propTypes = {
   time: PropTypes.node,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.object,
-}
+};

@@ -62,7 +62,7 @@ export default class PickerField extends Component {
       modernFormat,
       legacyFormat,
       /* eslint-enable no-unused-vars */
-      ...extraProps,
+      ...extraProps
     } = this.props;
 
     const buttonContent = createElement(button, {

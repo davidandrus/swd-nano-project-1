@@ -217,13 +217,11 @@ export default class SelectField extends Component {
       underlineFocusStyle,
       underlineShow,
       underlineStyle,
-      ...other,
+      ...other
     } = this.props;
 
     // from redux-form
     const { input: { value }, meta: { touched, error } } = this.props;
-
-    console.log(this.props, 'sucka');
 
     const { prepareStyles } = this.context.muiTheme;
     const styles = getStyles(this.props, this.context, this.state);
@@ -286,14 +284,18 @@ export default class SelectField extends Component {
         >
           {/* make sure that input shows as empty initially */}
           {!this.state.hasValue && <option value="" />}
-          {options.map(({ label, value }) => (
-            <option
-              key={value}
-              value={value}
-            >
-              {label}
-            </option>
-          ))}
+
+
+          { // eslint-disable-next-line
+            options.map(({ label, value }) => (
+              <option
+                key={value}
+                value={value}
+              >
+                {label}
+              </option>
+            ))
+          }
 
         </select>
         <ArrowDown style={customStyles.icon} />
@@ -324,8 +326,8 @@ SelectField.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
     value: PropTypes.string,
-  }))
-}
+  })),
+};
 
 SelectField.defaultProps = {
   underlineShow: true,
