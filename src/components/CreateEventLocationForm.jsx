@@ -8,6 +8,7 @@ import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
 import states from '../constants/states';
 import SelectField from './SelectField';
+import { zipCodeRegExp } from '../constants/regex';
 
 const nameMap = {
   'location-address': 'Street Address',
@@ -33,7 +34,7 @@ function validate(values) {
   });
 
   if (!errors['postal-code']) {
-    const isValid = /^\d{5}(-\d{4})?$/.test(values['postal-code']);
+    const isValid = zipCodeRegExp.test(values['postal-code']);
     if (!isValid) {
       errors['postal-code'] = `${nameMap['postal-code']} is not in the correct format e.g. 99999-9999`;
     }
