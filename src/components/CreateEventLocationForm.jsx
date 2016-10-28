@@ -32,6 +32,13 @@ function validate(values) {
     }
   });
 
+  if (!errors['postal-code']) {
+    const isValid = /^\d{5}(-\d{4})?$/.test(values['postal-code']);
+    if (!isValid) {
+      errors['postal-code'] = `${nameMap['postal-code']} is not in the correct format e.g. 99999-9999`;
+    }
+  }
+
   return errors;
 }
 
