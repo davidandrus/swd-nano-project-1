@@ -3,8 +3,6 @@ import { render } from 'react-dom';
 import store from './store/configureStore';
 import Root from './containers/Root';
 
-alert('this should work');
-
 render(
   <Root store={store} />,
   // eslint-disable-next-line no-undef
