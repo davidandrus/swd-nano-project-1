@@ -1,12 +1,48 @@
+/* eslint-disable react/prop-types */
 import React, { Component, PropTypes } from 'react';
 import TextFieldUnderline from 'material-ui/TextField/TextFieldUnderline';
 import TextFieldLabel from 'material-ui/TextField/TextFieldLabel';
 import TextFieldHint from 'material-ui/TextField/TextFieldHint';
 import transitions from 'material-ui/styles/transitions';
 import { fade } from 'material-ui/utils/colorManipulator';
+import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 
 // @NOTE - most everything in this file is copied from, modified to work with a native SelectField
 // https://github.com/callemall/material-ui/blob/master/src/TextField/TextField.js
+
+const getCustomStyles = (props, context, state) => {
+  const {
+    textField: {
+      focusColor,
+      hintColor,
+      errorColor,
+    },
+  } = context.muiTheme;
+
+  let iconColor = hintColor;
+  if (state.isFocused) iconColor = focusColor;
+  // eslint-disable-next-line no-extra-boolean-cast
+  if (!!state.errorText) iconColor = errorColor;
+
+  return {
+    root: {
+      height: '72px',
+    },
+    icon: {
+      color: iconColor,
+      position: 'absolute',
+      right: '0px',
+      bottom: '10px',
+      // so icon shows below select so doesn't eat select's clicks
+      zIndex: 1,
+    },
+    input: {
+      position: 'relative',
+      // for arrowIcon to be lower stacking order as to not eat select's clicks
+      zIndex: 2,
+    },
+  };
+};
 
 const getStyles = (props, context, state) => {
   const {
@@ -27,10 +63,10 @@ const getStyles = (props, context, state) => {
       fontSize: 16,
       lineHeight: '24px',
       width: props.fullWidth ? '100%' : 256,
-      height: (props.rows - 1) * 24 + (props.floatingLabelText ? 72 : 48),
+      height: ((props.rows - 1) * 24) + (props.floatingLabelText ? 72 : 48),
       display: 'inline-block',
       position: 'relative',
-      backgroundColor: backgroundColor,
+      backgroundColor,
       fontFamily: baseTheme.fontFamily,
       transition: transitions.easeOut('200ms', 'height'),
     },
@@ -150,24 +186,20 @@ export default class SelectField extends Component {
       hintStyle,
       id,
       inputStyle,
-      multiLine,
       onBlur, // eslint-disable-line no-unused-vars
       onChange, // eslint-disable-line no-unused-vars
       onFocus, // eslint-disable-line no-unused-vars
       style,
-      type,
       underlineDisabledStyle,
       underlineFocusStyle,
       underlineShow,
       underlineStyle,
-      rows,
-      rowsMax,
-      textareaStyle,
-      ...other
+      ...other,
     } = this.props;
 
-    const {prepareStyles} = this.context.muiTheme;
+    const { prepareStyles } = this.context.muiTheme;
     const styles = getStyles(this.props, this.context, this.state);
+    const customStyles = getCustomStyles(this.props, this.context, this.state);
     const inputId = id || this.uniqueId;
 
     const errorTextElement = this.state.errorText && (
@@ -187,16 +219,7 @@ export default class SelectField extends Component {
       </TextFieldLabel>
     );
 
-    const inputProps = {
-      id: inputId,
-      ref: (elem) => this.input = elem,
-      disabled: this.props.disabled,
-      onBlur: this.handleInputBlur,
-      onChange: this.handleInputChange,
-      onFocus: this.handleInputFocus,
-    };
-
-    const childStyleMerged = Object.assign(styles.input, inputStyle);
+    const childStyleMerged = Object.assign(styles.input, inputStyle, customStyles.input);
 
     let rootProps = {};
 
@@ -204,13 +227,16 @@ export default class SelectField extends Component {
       rootProps = other;
     }
 
+    /* eslint-disable max-len */
     const showHintText = !!(!(this.state.hasValue || (floatingLabelText && !this.state.isFocused)) ||
       (!this.state.hasValue && floatingLabelText && floatingLabelFixed && !this.state.isFocused));
+    /* eslint-enable max-len */
+
     return (
       <div
         {...rootProps}
         className={className}
-        style={prepareStyles(Object.assign(styles.root, style, { height: '72px' }))}
+        style={prepareStyles(Object.assign(styles.root, style, customStyles.root))}
       >
         {floatingLabelTextElement}
         {hintText ?
@@ -225,12 +251,12 @@ export default class SelectField extends Component {
         {/* {inputElement} */}
         <select
           id="checkIt"
-          style={styles.input}
+          style={childStyleMerged}
           onFocus={this._handleFocus}
           onBlur={this._handleBlur}
           onChange={this._handleChange}
         >
-          <option></option>
+          <option />
           <option>Ite works yo</option>
           <option>Ite works yo</option>
           <option>Ite works yo</option>
@@ -240,7 +266,8 @@ export default class SelectField extends Component {
           <option>Ite works yo</option>
           <option>Ite works yo</option>
         </select>
-        {/* {underlineShow ? */}
+        <ArrowDown style={customStyles.icon} />
+        {underlineShow ?
           <TextFieldUnderline
             disabled={disabled}
             disabledStyle={underlineDisabledStyle}
@@ -250,10 +277,9 @@ export default class SelectField extends Component {
             focusStyle={underlineFocusStyle}
             muiTheme={this.context.muiTheme}
             style={underlineStyle}
-          />{/* :
+          /> :
           null
         }
-        */}
         {errorTextElement}
       </div>
     );
@@ -262,4 +288,8 @@ export default class SelectField extends Component {
 
 SelectField.contextTypes = {
   muiTheme: PropTypes.object.isRequired,
-}
+};
+
+SelectField.defaultProps = {
+  underlineShow: true,
+};
