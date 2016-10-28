@@ -2,10 +2,8 @@ import { handleActions } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import * as actionTypes from '../constants/actionTypes';
 
-const testEvent = {"creator":"test","event-name":"test","event-type":"birthday-party","host":"test","start-date":"2016-10-28","start-time":"02:22","end-date":"2016-10-28","end-time":"02:22","location-address":"1900 NE 48th St.","city":"Renton","state":"AS","postal-code":"98056","emails":["djskatan@yahoo.com"],"message":"test"};
-
 const INITIAL_STATE = {
-  events: [testEvent],
+  events: [],
   createEvent: null,
   createEventLocation: null,
   createEventGuests: {
