@@ -1,6 +1,6 @@
-export const register = '/';
-export const createProfile = '/create-profile';
-export const createEvent = '/create-event';
-export const createEventLocation = '/create-event-location';
-export const createEventGuests = '/create-event-guests';
-export const events = '/events';
+export const register = '/swd-nano-project-1/';
+export const createProfile = '/swd-nano-project-1/create-profile';
+export const createEvent = '/swd-nano-project-1/create-event';
+export const createEventLocation = '/swd-nano-project-1/create-event-location';
+export const createEventGuests = '/swd-nano-project-1/create-event-guests';
+export const events = '/swd-nano-project-1/events';
