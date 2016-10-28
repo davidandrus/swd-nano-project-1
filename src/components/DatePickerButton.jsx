@@ -1,20 +1,12 @@
 import React, { PropTypes } from 'react';
-import moment from 'moment';
 import DateRange from 'material-ui/svg-icons/action/date-range';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 import PickerButton from './PickerButton';
-import {
-  modernDate,
-  legacyDate,
-} from '../constants/formats';
+import { getDateFromValue } from '../utils/date';
+
 
 export default function DatePickerButton({ onSelect, allowFutureDates, currentValue }) {
-  const currentLegacyDate = moment(currentValue, legacyDate);
-  const currentModernDate = moment(currentValue, modernDate);
-
-  let currentDate;
-  if (currentLegacyDate.isValid()) { currentDate = currentLegacyDate; }
-  if (currentModernDate.isValid()) { currentDate = currentModernDate; }
+  const currentDate = getDateFromValue(currentValue);
 
   return (
     <PickerButton

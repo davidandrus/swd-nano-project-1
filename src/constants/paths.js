@@ -1,6 +1,8 @@
-export const register = '/';
-export const createProfile = '/create-profile';
-export const createEvent = '/create-event';
-export const createEventLocation = '/create-event-location';
-export const createEventGuests = '/create-event-guests';
-export const events = '/events';
+const basePath = process.env.NODE_ENV === 'production' ? '/swd-nano-project-1' : '';
+const applyBasePath = relPath => `${basePath}${relPath}`;
+export const register = applyBasePath('/');
+export const createProfile = applyBasePath('/create-profile');
+export const createEvent = applyBasePath('/create-event');
+export const createEventLocation = applyBasePath('/create-event-location');
+export const createEventGuests = applyBasePath('/create-event-guests');
+export const events = applyBasePath('/events');

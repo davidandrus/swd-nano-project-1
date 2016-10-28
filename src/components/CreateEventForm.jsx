@@ -15,6 +15,7 @@ import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
 import DateTime from './DateTime';
 import SelectField from './SelectField';
+import eventTypes from '../constants/eventTypes';
 
 const nameMap = {
   'event-name': 'Event Name',
@@ -24,12 +25,6 @@ const nameMap = {
   'start-time': 'Start Time',
   'end-date': 'End Date',
   'end-time': 'End Time',
-};
-
-const eventTypes = {
-  'birthday-party': 'Birthday Party',
-  'confererence-talk': 'Conference Talk',
-  wedding: 'Wedding',
 };
 
 const eventTypeOptions = Object.keys(eventTypes).map(type => ({

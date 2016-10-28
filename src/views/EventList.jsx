@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import moment from 'moment';
 import omit from 'lodash/omit';
 import { connect } from 'react-redux';
 import {
@@ -16,6 +15,11 @@ import {
   standardMarginBottom,
 } from '../constants/styles';
 import states from '../constants/states';
+import eventTypes from '../constants/eventTypes';
+import {
+  getDateFromValue,
+  getTimeFromValue,
+} from '../utils/date';
 
 const subTitleStyle = {
   fontSize: '15px',
@@ -55,7 +59,7 @@ function getSubTitle(event) {
     <span style={subTitleStyle}>
       {getSubTitleSection('created by', event.creator)}
       {getSubTitleSection('hosted by', event.host)}
-      {getSubTitleSection('event type', event['event-type'])}
+      {getSubTitleSection('event type', eventTypes[event['event-type']])}
       {getSubTitleSection('start time', event.startDate)}
       {getSubTitleSection('end time', event.endDate)}
       {getSubTitleSection('location', (
@@ -126,13 +130,13 @@ const mapStateToProps = state => ({
 
     return {
       ...updatedEvent,
-      startDate: moment(event['start-date']).set({
-        hours: moment(event['start-time']).hours(),
-        minutes: moment(event['start-time']).hours(),
+      startDate: getDateFromValue(event['start-date']).set({
+        hours: getTimeFromValue(event['start-time']).hours(),
+        minutes: getTimeFromValue(event['start-time']).hours(),
       }).format('MM/DD/YY - hh:mma'),
-      endDate: moment(event['end-date']).set({
-        hours: moment(event['end-time']).hours(),
-        minutes: moment(event['end-time']).hours(),
+      endDate: getDateFromValue(event['end-date']).set({
+        hours: getTimeFromValue(event['end-time']).hours(),
+        minutes: getTimeFromValue(event['end-time']).hours(),
       }).format('MM/DD/YY - hh:mma'),
     };
   }),
