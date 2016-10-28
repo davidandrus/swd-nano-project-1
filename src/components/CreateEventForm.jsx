@@ -6,10 +6,7 @@ import {
   Field,
 } from 'redux-form';
 import get from 'lodash/get';
-import {
-  TextField,
-  // SelectField,
-} from 'redux-form-material-ui';
+import { TextField } from 'redux-form-material-ui';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import RequiredLabel from './RequiredLabel';
