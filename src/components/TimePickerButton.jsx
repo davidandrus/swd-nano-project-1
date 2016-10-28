@@ -1,20 +1,11 @@
 import React, { PropTypes } from 'react';
-import moment from 'moment';
 import Schedule from 'material-ui/svg-icons/action/schedule';
 import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 import PickerButton from './PickerButton';
-import {
-  modernTime,
-  legacyTime,
-} from '../constants/formats';
+import { getTimeFromValue } from '../utils/date';
 
 export default function TimePickerButton({ onSelect, currentValue }) {
-  const currentLegacyTime = moment(currentValue, legacyTime);
-  const currentModernTime = moment(currentValue, modernTime);
-
-  let currentTime;
-  if (currentLegacyTime.isValid()) { currentTime = currentLegacyTime; }
-  if (currentModernTime.isValid()) { currentTime = currentModernTime; }
+  const currentTime = getTimeFromValue(currentValue);
 
   return (
     <PickerButton

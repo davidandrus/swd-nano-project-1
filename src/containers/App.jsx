@@ -38,19 +38,19 @@ const enterHooks = {
     }
   },
   createProfile(nextState, replace) {
-    requireRegistration(replace);
+    // requireRegistration(replace);
   },
   createEvent(nextState, replace) {
-    requireRegistration(replace);
+    // requireRegistration(replace);
   },
   createEventLocation(nextState, replace) {
-    requireRegistration(replace);
-    requireCreateEvent(replace);
+    // requireRegistration(replace);
+    // requireCreateEvent(replace);
   },
   createEventGuests(nextState, replace) {
-    requireRegistration(replace);
-    requireCreateEvent(replace);
-    requireCreateEventLocation(replace);
+    // requireRegistration(replace);
+    // requireCreateEvent(replace);
+    // requireCreateEventLocation(replace);
   },
 };
 
