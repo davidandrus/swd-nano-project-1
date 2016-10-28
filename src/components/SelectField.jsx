@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Component, PropTypes } from 'react';
+import get from 'lodash/get';
 import TextFieldUnderline from 'material-ui/TextField/TextFieldUnderline';
 import TextFieldLabel from 'material-ui/TextField/TextFieldLabel';
 import TextFieldHint from 'material-ui/TextField/TextFieldHint';
@@ -7,8 +8,14 @@ import transitions from 'material-ui/styles/transitions';
 import { fade } from 'material-ui/utils/colorManipulator';
 import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 
-// @NOTE - most everything in this file is copied from, modified to work with a native SelectField
-// https://github.com/callemall/material-ui/blob/master/src/TextField/TextField.js
+/**
+ *  @NOTE - most everything in this file is copied from, and modified to work with a native SelectField
+ *  https://github.com/callemall/material-ui/blob/master/src/TextField/TextField.js
+ *
+ * it should also be noted that this has been made to be compatible with react-redux-form as well
+ * http://redux-form.com/6.1.1/docs/api/Field.md/
+ */
+//
 
 const getCustomStyles = (props, context, state) => {
   const {
@@ -21,8 +28,11 @@ const getCustomStyles = (props, context, state) => {
 
   let iconColor = hintColor;
   if (state.isFocused) iconColor = focusColor;
+
   // eslint-disable-next-line no-extra-boolean-cast
-  if (!!state.errorText) iconColor = errorColor;
+  if (props.meta.error && props.meta.touched) {
+    iconColor = errorColor;
+  }
 
   return {
     root: {
@@ -38,6 +48,8 @@ const getCustomStyles = (props, context, state) => {
     },
     input: {
       position: 'relative',
+      height: '72px',
+      marginBottom: '-14px',
       // for arrowIcon to be lower stacking order as to not eat select's clicks
       zIndex: 2,
     },
@@ -148,26 +160,35 @@ export default class SelectField extends Component {
     this._handleChange = this._handleChange.bind(this);
     this.state = {
       isFocused: false,
-      hasValue: false,
+      hasValue: this.props.input.value,
     };
+  }
+
+  componentWillReceiveProps({ value }) {
+    if (value) {
+      this.setState({ hasValue: true });
+    }
+  }
+
+  _handleChange(e) {
+    this.setState({
+      hasValue: true,
+    });
+    this.props.input.onChange(e.target.value);
   }
 
   _handleFocus() {
     this.setState({
       isFocused: true,
     });
+    this.props.input.onFocus();
   }
 
-  _handleBlur() {
+  _handleBlur(e) {
     this.setState({
       isFocused: false,
     });
-  }
-
-  _handleChange() {
-    this.setState({
-      hasValue: true,
-    });
+    this.props.input.onBlur(e);
   }
 
   render() {
@@ -197,13 +218,18 @@ export default class SelectField extends Component {
       ...other,
     } = this.props;
 
+    // from redux-form
+    const { input: { value }, meta: { touched, error } } = this.props;
+
+    console.log(this.props, 'sucka');
+
     const { prepareStyles } = this.context.muiTheme;
     const styles = getStyles(this.props, this.context, this.state);
     const customStyles = getCustomStyles(this.props, this.context, this.state);
     const inputId = id || this.uniqueId;
 
-    const errorTextElement = this.state.errorText && (
-      <div style={prepareStyles(styles.error)}>{this.state.errorText}</div>
+    const errorTextElement = touched && error && (
+      <div style={prepareStyles(styles.error)}>{error}</div>
     );
 
     const floatingLabelTextElement = floatingLabelText && (
@@ -248,30 +274,24 @@ export default class SelectField extends Component {
           /> :
           null
         }
-        {/* {inputElement} */}
         <select
           id="checkIt"
           style={childStyleMerged}
           onFocus={this._handleFocus}
           onBlur={this._handleBlur}
           onChange={this._handleChange}
+          value={value}
         >
-          <option />
-          <option>Ite works yo</option>
-          <option>Ite works yo</option>
-          <option>Ite works yo</option>
-          <option>Ite works yo</option>
-          <option>Ite works yo</option>
-          <option>Ite works yo</option>
-          <option>Ite works yo</option>
-          <option>Ite works yo</option>
+          {/* make sure that input shows as empty initially */}
+          {!this.state.hasValue && <option value="" />}
+          <option value="it works">Ite works yo</option>
         </select>
         <ArrowDown style={customStyles.icon} />
         {underlineShow ?
           <TextFieldUnderline
             disabled={disabled}
             disabledStyle={underlineDisabledStyle}
-            error={!!this.state.errorText}
+            error={error && touched}
             errorStyle={errorStyle}
             focus={this.state.isFocused}
             focusStyle={underlineFocusStyle}
