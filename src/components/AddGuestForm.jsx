@@ -1,13 +1,16 @@
 import React, { PropTypes } from 'react';
-import { reduxForm, Field } from 'redux-form';
+import {
+  reduxForm,
+  Field,
+} from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import { emailRegExp } from '../constants/regex';
 import { standardMarginBottom, standardMargin } from '../constants/styles';
 
 const inlineInputWrapper = {
-  display: 'flex',
   ...standardMarginBottom,
+  display: 'flex',
 };
 
 const inlineInput = {

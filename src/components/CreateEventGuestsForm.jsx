@@ -1,4 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, {
+  Component,
+  PropTypes,
+} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -38,6 +41,8 @@ export class CreateEventGuestsForm extends Component {
       marginTop: '10px',
     };
 
+    const { emails } = this.props;
+
     return (
       <div>
         <AddGuestForm
@@ -45,16 +50,16 @@ export class CreateEventGuestsForm extends Component {
           ref={(form) => { this._addGuestForm = form; }}
         />
         <div>
-          {this.props.emails.length === 0 &&
+          {emails.length === 0 &&
             <h3 style={requiredStyle}>You must add at least one guest Email Address</h3>
           }
           <Chips
-            items={this.props.emails}
+            items={emails}
             onDelete={this.props.removeGuest}
           />
         </div>
 
-        {this.props.emails.length > 0 &&
+        {emails.length > 0 &&
           <TextField
             autoFocus
             multiLine
@@ -70,7 +75,7 @@ export class CreateEventGuestsForm extends Component {
 
         <RaisedButton
           primary
-          disabled={this.props.emails.length === 0}
+          disabled={emails.length === 0}
           label="Add Event"
           type="submit"
           onClick={this._handleSubmit}
