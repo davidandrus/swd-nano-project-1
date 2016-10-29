@@ -27,7 +27,7 @@ npm install
 ``` sh
 npm start
 ```
-once started you can view the project at: [http://localhost:3000](http://localhost:3000)
+After the dev server has started you can view the project at: [http://localhost:3000](http://localhost:3000)
 ### Build Production Assets
 ``` sh
 npm run build
