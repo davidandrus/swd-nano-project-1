@@ -1,5 +1,4 @@
 const basePath = process.env.DEPLOY_TARGET === 'github' ? '/swd-nano-project-1' : '';
-alert('basePath ' + basePath);
 const applyBasePath = relPath => `${basePath}${relPath}`;
 export const register = applyBasePath('/');
 export const createProfile = applyBasePath('/create-profile');
