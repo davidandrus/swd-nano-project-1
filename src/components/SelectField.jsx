@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
-import React, { Component, PropTypes } from 'react';
+import React, {
+  Component,
+  PropTypes,
+} from 'react';
 import TextFieldUnderline from 'material-ui/TextField/TextFieldUnderline';
 import TextFieldLabel from 'material-ui/TextField/TextFieldLabel';
 import TextFieldHint from 'material-ui/TextField/TextFieldHint';
@@ -9,14 +12,13 @@ import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 
 /**
  *  @NOTE - most everything in this file is copied from material ui TextField,
- *  and modified to work with a native Select input, it however does not include
- *  all of the funtionality of the original
+ *  and modified to work with a native HTML select element, it however does not
+ *  include all of the funtionality of the original
  *  https://github.com/callemall/material-ui/blob/master/src/TextField/TextField.js
  *
  * it should also be noted that this has been made to be compatible with react-redux-form as well
  * http://redux-form.com/6.1.1/docs/api/Field.md/
  */
-//
 
 const getCustomStyles = (props, context, state) => {
   const {
@@ -40,17 +42,17 @@ const getCustomStyles = (props, context, state) => {
       height: '72px',
     },
     icon: {
+      bottom: '10px',
       color: iconColor,
       position: 'absolute',
       right: '0px',
-      bottom: '10px',
       // so icon shows below select so doesn't eat select's clicks
       zIndex: 1,
     },
     input: {
-      position: 'relative',
       height: '72px',
-      marginBottom: '-14px',
+      marginBottom: '-14px', // so error message is positioned correctly
+      position: 'relative',
       // for arrowIcon to be lower stacking order as to not eat select's clicks
       zIndex: 2,
     },
@@ -221,7 +223,15 @@ export default class SelectField extends Component {
     } = this.props;
 
     // from redux-form
-    const { input: { value }, meta: { touched, error } } = this.props;
+    const {
+      input: {
+        value,
+      },
+      meta: {
+        touched,
+        error,
+      },
+    } = this.props;
 
     const { prepareStyles } = this.context.muiTheme;
     const styles = getStyles(this.props, this.context, this.state);
@@ -284,7 +294,6 @@ export default class SelectField extends Component {
         >
           {/* make sure that input shows as empty initially */}
           {!this.state.hasValue && <option value="" />}
-
 
           { // eslint-disable-next-line
             options.map(({ label, value }) => (

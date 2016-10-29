@@ -1,6 +1,11 @@
 import React, { PropTypes } from 'react';
 import findIndex from 'lodash/findIndex';
-import { Stepper, Step, StepLabel, StepContent } from 'material-ui/Stepper';
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  StepContent,
+} from 'material-ui/Stepper';
 import * as paths from '../constants/paths';
 import FormWrapper from './FormWrapper';
 

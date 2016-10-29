@@ -16,7 +16,10 @@ export default class ChipItem extends Component {
   }
 
   render() {
-    const { onDelete, text } = this.props;
+    const {
+      onDelete,
+      text,
+    } = this.props;
     const passProps = {
       onRequestDelete: onDelete ? this._handleDelete : undefined,
     };

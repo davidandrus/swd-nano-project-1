@@ -1,5 +1,9 @@
 /* eslint-disable */
-import { createStore, applyMiddleware, compose } from 'redux';
+import {
+  createStore,
+  applyMiddleware,
+  compose,
+} from 'redux';
 import { persistState } from 'redux-devtools';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';

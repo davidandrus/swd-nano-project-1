@@ -35,6 +35,7 @@ export default class PickerField extends Component {
 
   componentDidMount() {
     this._inputNode = getInputFromFieldNode(this._input);
+    this._inputField = getInputFromField(this._input);
     this._usesModernInput = this._inputNode.type === this.props.type;
   }
 
@@ -43,12 +44,11 @@ export default class PickerField extends Component {
     const standardTextInputFormat = this.props.legacyFormat;
 
     const formattedDate = moment(time).format(
-      this._usesModernInput
-      ? modernInputFormat
-      : standardTextInputFormat
+      this._usesModernInput ? modernInputFormat : standardTextInputFormat
     );
 
-    getInputFromField(this._input).onChange(formattedDate);
+    this._inputField.onChange(formattedDate);
+    this._inputField.onBlur();
   }
 
   render() {
