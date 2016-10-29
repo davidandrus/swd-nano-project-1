@@ -11,10 +11,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import RequiredLabel from './RequiredLabel';
 import DatePickerField from './DatePickerField';
 import TimePickerField from './TimePickerField';
+import SelectField from './SelectField';
 import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
-import DateTime from './DateTime';
-import SelectField from './SelectField';
 import eventTypes from '../constants/eventTypes';
 import { getTimeFromValue, getDateFromValue } from '../utils/date';
 

@@ -26,8 +26,8 @@ const subTitleStyle = {
 };
 
 const eventDetailStyle = {
-  display: 'flex',
   alignItems: 'flex-start',
+  display: 'flex',
   lineHeight: '150%',
   marginTop: '10px',
 };
@@ -39,6 +39,10 @@ const eventDetailLabelStyle = {
 
 const eventDetailValueStyle = {
   fontWeight: 500,
+};
+
+const noEventsMessageStyle = {
+  marginBottom: '30px',
 };
 
 function getSubTitleSection(label, value) {
@@ -81,7 +85,7 @@ export function EventList({ events }) {
   return (
     <div style={wrapperStyle}>
       {events.length === 0 &&
-        <h1>No Events Have Been Created Yet</h1>
+        <h1 style={noEventsMessageStyle}>No Events Have Been Created Yet</h1>
       }
       {/* normally wouldn't use index as key here, but since it's a demo going to let it go */}
       {events.map((event, index) => (

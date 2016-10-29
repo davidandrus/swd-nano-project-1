@@ -1,19 +1,23 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
 import moment from 'moment';
 import get from 'lodash/get';
-import RaisedButton from 'material-ui/RaisedButton';
+import { connect } from 'react-redux';
+import {
+  reduxForm,
+  Field,
+} from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
+import RaisedButton from 'material-ui/RaisedButton';
+import DatePickerField from './DatePickerField';
 import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
-import DatePickerField from './DatePickerField';
+import { getDateFromValue } from '../utils/date';
 
 function validate(values) {
   const errors = [];
-  const birthDate = moment(values['birth-date']);
+  const birthDate = getDateFromValue(values['birth-date']);
 
-  if (!birthDate.isValid()) {
+  if (birthDate) {
     errors['birth-date'] = 'Not a valid date';
   } else if (birthDate > moment()) {
     errors['birth-date'] = "Your birth date can't be in the future";

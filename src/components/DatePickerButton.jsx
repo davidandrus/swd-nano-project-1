@@ -4,7 +4,6 @@ import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 import PickerButton from './PickerButton';
 import { getDateFromValue } from '../utils/date';
 
-
 export default function DatePickerButton({ onSelect, allowFutureDates, currentValue }) {
   const currentDate = getDateFromValue(currentValue);
 

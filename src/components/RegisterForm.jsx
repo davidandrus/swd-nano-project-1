@@ -25,6 +25,7 @@ const specialChars = [
   '&',
 ];
 
+// must contain uppercase letter, lowercase letter, number and special character
 const passwordRules = [
   /[A-Z]/,
   /[a-z]/,

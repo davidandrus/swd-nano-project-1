@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 
 const dateTimeWrapperStyle = {
-  justifyContent: 'space-between',
   maxWidth: '100%',
+  justifyContent: 'space-between',
 };
 
 const datePickerStyle = {
@@ -13,23 +13,25 @@ const timePickerStyle = {
   flex: '0 0 48%',
 };
 
+const dateTimeWrapperCSS = `
+  .date-time-wrapper {
+    dispay: 'block';
+  }
+
+  @media only screen and (min-width: 640px)  {
+    .date-time-wrapper {
+      display: flex;
+    }
+  }
+`;
+
 export default function DateTime({ date, time, style }) {
   return (
     <div>
       <style
         type="text/css"
         dangerouslySetInnerHTML={{
-          __html: `
-            .date-time-wrapper {
-              dispay: 'block';
-            }
-
-            @media only screen and (min-width: 640px)  {
-              .date-time-wrapper {
-                display: flex;
-              }
-            }
-          `,
+          __html: dateTimeWrapperCSS,
         }}
       />
       <div

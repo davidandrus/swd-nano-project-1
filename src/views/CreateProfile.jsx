@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { createProfile as createProfileAction } from '../actions';
 import RegisterWrapper from '../components/RegisterWrapper';
 import CreateProfileForm from '../components/CreateProfileForm';
+import { createProfile as createProfileAction } from '../actions';
 
 function CreateProfile({ activePath, createProfile }) {
   return (
