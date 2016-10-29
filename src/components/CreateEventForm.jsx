@@ -12,6 +12,7 @@ import RequiredLabel from './RequiredLabel';
 import DatePickerField from './DatePickerField';
 import TimePickerField from './TimePickerField';
 import SelectField from './SelectField';
+import DateTime from './DateTime';
 import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
 import eventTypes from '../constants/eventTypes';
