@@ -75,7 +75,7 @@ function validate(values) {
   if (values['end-date'] && !endDate) {
     errors['end-date'] = notValidDate;
   }
-  
+
   if (values['end-time'] && !endTime) {
     errors['end-time'] = notValidTime;
   }
