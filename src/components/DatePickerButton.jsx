@@ -10,6 +10,7 @@ export default function DatePickerButton({ onSelect, allowFutureDates, currentVa
   return (
     <PickerButton
       icon={<DateRange />}
+      title="Open Date Dialog"
       dialog={
         <DatePickerDialog
           firstDayOfWeek={1}

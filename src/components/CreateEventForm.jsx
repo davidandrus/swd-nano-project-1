@@ -115,6 +115,7 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
       <DateTime
         date={
           <DatePickerField
+            allowFutureDates
             required
             floatingLabelText={<RequiredLabel text={`${nameMap['start-date']}: e.g. 01/01/2000`} />}
             name="start-date"
@@ -134,6 +135,7 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
         style={standardMarginBottom}
         date={
           <DatePickerField
+            allowFutureDates
             required
             floatingLabelText={<RequiredLabel text={`${nameMap['end-date']} e.g. 01/01/2000`} />}
             name="end-date"
