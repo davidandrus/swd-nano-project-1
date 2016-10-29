@@ -18,6 +18,7 @@ This assumes that you have node and npm installed
 git clone git@github.com:davidandrus/swd-nano-project-1.git
 ```
 ### Install dependencies
+`cd` into your cloned folder and then run:
 ``` sh
 npm install -g babel-cli
 npm install
