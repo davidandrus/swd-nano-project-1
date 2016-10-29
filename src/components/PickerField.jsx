@@ -53,6 +53,7 @@ export default class PickerField extends Component {
 
   render() {
     const {
+      allowFutureDates,
       button,
       currentValue,
       name,
@@ -66,6 +67,7 @@ export default class PickerField extends Component {
     } = this.props;
 
     const buttonContent = createElement(button, {
+      allowFutureDates,
       currentValue,
       onSelect: this._updateInput,
     });

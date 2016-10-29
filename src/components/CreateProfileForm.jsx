@@ -17,8 +17,8 @@ function validate(values) {
   const errors = [];
   const birthDate = getDateFromValue(values['birth-date']);
 
-  if (birthDate) {
-    errors['birth-date'] = 'Not a valid date';
+  if (values['birth-date'] && !birthDate) {
+    errors['birth-date'] = 'Not a valid date format';
   } else if (birthDate > moment()) {
     errors['birth-date'] = "Your birth date can't be in the future";
   }

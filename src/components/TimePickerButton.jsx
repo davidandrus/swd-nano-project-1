@@ -10,6 +10,7 @@ export default function TimePickerButton({ onSelect, currentValue }) {
   return (
     <PickerButton
       icon={<Schedule />}
+      title="Open Time Dialog"
       dialog={
         <TimePickerDialog
           format="ampm"
