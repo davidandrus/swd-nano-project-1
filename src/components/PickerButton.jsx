@@ -24,7 +24,9 @@ export default class PickerButton extends Component {
 
     return (
       <div>
-        <IconButton onClick={this._openDialog}>
+        <IconButton
+          onClick={this._openDialog}
+          title={this.props.title}>
           {this.props.icon}
         </IconButton>
         {dialog}
@@ -37,4 +39,5 @@ PickerButton.propTypes = {
   icon: PropTypes.node,
   currentValue: PropTypes.string,
   dialog: PropTypes.node,
+  title: PropTypes.string,
 };
