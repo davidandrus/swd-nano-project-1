@@ -3,11 +3,11 @@
 You can view the app at https://davidandrus.github.io/swd-nano-project-1/
 
 Notable libraries included in this project are:
-* React
-* Redux
-* Redux Form
-* Material UI
-* React Router
+* [React](https://github.com/facebook/react)
+* [Redux](https://github.com/reactjs/redux))
+* [Redux Form](https://github.com/erikras/redux-form)
+* [Material UI](https://github.com/callemall/material-ui)
+* [React Router](https://github.com/ReactTraining/react-router)
 
 ## Running the project locally
 

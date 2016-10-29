@@ -2,6 +2,7 @@
   "name": "swd-nano-project-1",
   "version": "1.0.0",
   "description": "Senior Web Developer Nanodegree Prjoject 1 - Meet-Up Event Planner",
+  "homepage": "https://davidandrus.github.io/swd-nano-project-1/",
   "main": "index.js",
   "scripts": {
     "lint": "eslint ./src/** --ext .jsx --ext .js",
@@ -20,7 +21,6 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.14.0",
-    "enzyme": "^2.0.0",
     "eslint": "^3.4.0",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-import": "^2.0.0",

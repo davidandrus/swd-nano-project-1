@@ -41,7 +41,7 @@ const enterHooks = {
     requireRegistration(replace);
   },
   createEvent(nextState, replace) {
-    requireRegistration(replace);
+    //requireRegistration(replace);
   },
   createEventLocation(nextState, replace) {
     requireRegistration(replace);
