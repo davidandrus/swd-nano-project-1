@@ -13,6 +13,7 @@ module.exports = assign({}, base, {
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production'),
+        'DEPLOY_TARGET': JSON.stringify(process.env.DEPLOY_TARGET),
       },
     }),
     new webpack.optimize.UglifyJsPlugin({

@@ -7,7 +7,8 @@
   "scripts": {
     "lint": "eslint ./src/** --ext .jsx --ext .js",
     "start": "babel-node devServer.js",
-    "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js"
+    "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
+    "build:github": "NODE_ENV=production DEPLOY_TARGET=github webpack -p --config webpack.config.prod.js"
   },
   "keywords": [],
   "author": "David Andrus",
