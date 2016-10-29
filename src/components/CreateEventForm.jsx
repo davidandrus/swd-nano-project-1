@@ -56,12 +56,31 @@ function validate(values) {
     }
   });
 
-  if (!hasDateError(errors)) {
-    const startDate = getDateFromValue(values['start-date']);
-    const startTime = getTimeFromValue(values['start-time']);
-    const endDate = getDateFromValue(values['end-date']);
-    const endTime = getTimeFromValue(values['end-time']);
+  const startDate = getDateFromValue(values['start-date']);
+  const startTime = getTimeFromValue(values['start-time']);
+  const endDate = getDateFromValue(values['end-date']);
+  const endTime = getTimeFromValue(values['end-time']);
 
+  const notValidTime = 'Not a valid time format';
+  const notValidDate = 'Not a valid date format';
+
+  if (values['start-date'] && !startDate) {
+    errors['start-date'] = notValidDate;
+  }
+
+  if (values['start-time'] && !startTime) {
+    errors['start-time'] = notValidTime;
+  }
+
+  if (values['end-date'] && !endDate) {
+    errors['end-date'] = notValidDate;
+  }
+  
+  if (values['end-time'] && !endTime) {
+    errors['end-time'] = notValidTime;
+  }
+
+  if (!hasDateError(errors)) {
     const startCombined = moment(startDate).set({
       hours: startTime.hours(),
       minutes: startTime.minutes(),
@@ -73,7 +92,7 @@ function validate(values) {
     });
 
     // dates out of order
-    if (endCombined < startCombined) {
+    if (endCombined < startCombined && !hasDateError(errors)) {
       errors['start-date'] = errors['start-time'] = 'Start cannot be later than End';
       errors['end-date'] = errors['end-time'] = 'End cannot be earlier than Start';
     }
