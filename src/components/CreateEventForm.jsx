@@ -92,9 +92,9 @@ function validate(values) {
     });
 
     // dates out of order
-    if (endCombined < startCombined && !hasDateError(errors)) {
-      errors['start-date'] = errors['start-time'] = 'Start cannot be later than End';
-      errors['end-date'] = errors['end-time'] = 'End cannot be earlier than Start';
+    if (endCombined <= startCombined && !hasDateError(errors)) {
+      errors['start-date'] = errors['start-time'] = 'Start must be earlier than End';
+      errors['end-date'] = errors['end-time'] = 'End must be later than Start';
     }
   }
 
