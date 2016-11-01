@@ -33,10 +33,9 @@ const eventTypeOptions = Object.keys(eventTypes).map(type => ({
   label: eventTypes[type],
 }));
 
-const hasDateError = errors => !!(errors['start-date'] ||
-  errors['start-time'] ||
-  errors['end-date'] ||
-  errors['end-time']);
+const hasStartDateError = errors => !!(errors['start-date'] || errors['start-time']);
+const hasEndDateError = errors => !!(errors['end-date'] || errors['end-time']);
+const hasDateError = errors => hasStartDateError(errors) || hasEndDateError(errors);
 
 function validate(values) {
   const errors = [];
@@ -80,22 +79,35 @@ function validate(values) {
     errors['end-time'] = notValidTime;
   }
 
-  if (!hasDateError(errors)) {
-    const startCombined = moment(startDate).set({
+  const now = moment();
+
+  let startCombined;
+  let endCombined;
+  if (!hasStartDateError(errors)) {
+    startCombined = moment(startDate).set({
       hours: startTime.hours(),
       minutes: startTime.minutes(),
     });
 
-    const endCombined = moment(endDate).set({
+    if (startCombined <= now) {
+      errors['start-date'] = errors['start-time'] = 'Start must be in the future';
+    }
+  }
+
+  if (!hasEndDateError(errors)) {
+    endCombined = moment(endDate).set({
       hours: endTime.hours(),
       minutes: endTime.minutes(),
     });
-
-    // dates out of order
-    if (endCombined <= startCombined && !hasDateError(errors)) {
-      errors['start-date'] = errors['start-time'] = 'Start must be earlier than End';
-      errors['end-date'] = errors['end-time'] = 'End must be later than Start';
+    if (endCombined <= now) {
+      errors['end-date'] = errors['end-time'] = 'End must be in the future';
     }
+  }
+
+   // dates out of order
+  if (!hasDateError(errors) && endCombined <= startCombined) {
+    errors['start-date'] = errors['start-time'] = 'Start must be earlier than End';
+    errors['end-date'] = errors['end-time'] = 'End must be later than Start';
   }
 
   return errors;
@@ -134,8 +146,8 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
       <DateTime
         date={
           <DatePickerField
-            allowFutureDates
             required
+            allowPastDates={false}
             floatingLabelText={<RequiredLabel text={`${nameMap['start-date']}: e.g. 01/01/2000`} />}
             name="start-date"
             currentValue={currentValues['start-date']}
@@ -154,8 +166,8 @@ export function CreateEventForm({ handleSubmit, onSubmit, currentValues }) {
         style={standardMarginBottom}
         date={
           <DatePickerField
-            allowFutureDates
             required
+            allowPastDates={false}
             floatingLabelText={<RequiredLabel text={`${nameMap['end-date']} e.g. 01/01/2000`} />}
             name="end-date"
             currentValue={currentValues['end-date']}
