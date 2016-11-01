@@ -39,7 +39,7 @@ function validate(values) {
   if (!errors['postal-code']) {
     const isValid = zipCodeRegExp.test(values['postal-code']);
     if (!isValid) {
-      errors['postal-code'] = `${nameMap['postal-code']} is not in the correct format e.g. 99999-9999`;
+      errors['postal-code'] = `${nameMap['postal-code']} is not in the correct format e.g. 12345 or 12345-1234`;
     }
   }
 
