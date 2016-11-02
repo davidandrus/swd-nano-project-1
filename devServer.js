@@ -1,7 +1,7 @@
 import path from 'path';
 import express from 'express';
 import webpack from 'webpack';
-import config from './webpack.config.dev';
+import config from './webpack.config.js';
 
 const app = express();
 const compiler = webpack(config);
