@@ -57,6 +57,7 @@ export function CreateEventLocationForm({ handleSubmit, onSubmit }) {
       <Field
         fullWidth
         required
+        autoFocus
         autoComplete="address-line1"
         component={TextField}
         floatingLabelText={<RequiredLabel text={nameMap['location-address']} />}
