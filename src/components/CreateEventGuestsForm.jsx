@@ -41,7 +41,13 @@ export class CreateEventGuestsForm extends Component {
       marginTop: '10px',
     };
 
-    const { emails } = this.props;
+    const {
+      emails,
+      message,
+      removeGuest,
+    } = this.props;
+
+    console.log('passing chips down', emails);
 
     return (
       <div>
@@ -55,7 +61,7 @@ export class CreateEventGuestsForm extends Component {
           }
           <Chips
             items={emails}
-            onDelete={this.props.removeGuest}
+            onDelete={removeGuest}
           />
         </div>
 
@@ -69,7 +75,7 @@ export class CreateEventGuestsForm extends Component {
             onChange={this._handleMessageUpdate}
             rows={2}
             style={standardMarginBottom}
-            value={this.props.message}
+            value={message}
           />
         }
 

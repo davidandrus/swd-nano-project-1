@@ -12,8 +12,10 @@ import DatePickerField from './DatePickerField';
 import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
 import { getDateFromValue } from '../utils/date';
+import { trimValues } from '../utils/helpers';
 
-function validate(values) {
+function validate(origValues) {
+  const values = trimValues(origValues);
   const errors = [];
   const birthDate = getDateFromValue(values['birth-date']);
 
