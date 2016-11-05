@@ -6,7 +6,11 @@ import {
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import { emailRegExp } from '../constants/regex';
-import { standardMarginBottom, standardMargin } from '../constants/styles';
+import {
+  standardMarginBottom,
+  standardMargin,
+} from '../constants/styles';
+import { trimValues } from '../utils/helpers';
 
 const inlineInputWrapper = {
   ...standardMarginBottom,
@@ -23,8 +27,9 @@ const inlineButton = {
   paddingTop: '28px', // to offset hidden label area
 };
 
-function validate(values) {
+function validate(origValues) {
   const errors = [];
+  const values = trimValues(origValues);
 
   if (!emailRegExp.test(values['guest-email'])) {
     errors['guest-email'] = 'Invalid email';

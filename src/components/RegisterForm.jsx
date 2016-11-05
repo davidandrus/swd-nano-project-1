@@ -7,6 +7,7 @@ import RequiredLabel from './RequiredLabel';
 import { emailRegExp } from '../constants/regex';
 import { standardMarginBottom } from '../constants/styles';
 import { getters } from '../reducers';
+import { registerTrimmer } from '../utils/helpers';
 
 const nameMap = {
   name: 'Full Name',
@@ -33,8 +34,11 @@ const passwordRules = [
   new RegExp(`[\\${specialChars.join('\\')}]`),
 ];
 
-function validate(values) {
+function validate(origValues) {
+  const values = registerTrimmer(origValues);
   const errors = {};
+
+  console.log(values);
 
   // required fields;
   ['name', 'email', 'password'].forEach((key) => {
@@ -54,6 +58,7 @@ function validate(values) {
   // make sure the required or length error passes through, before these specific password rules
   if (!errors.password) {
     passwordRules.forEach((rule) => {
+      // not using trim values here since we want to capture spaces in password
       if (!rule.test(values.password)) {
         errors.password = `${nameMap.password} must contain at least one lowercase letter, an uppercase letter,
           a number and one of the following special characters ${specialChars.join(',')}`;

@@ -16,7 +16,11 @@ import DateTime from './DateTime';
 import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
 import eventTypes from '../constants/eventTypes';
-import { getTimeFromValue, getDateFromValue } from '../utils/date';
+import {
+  getTimeFromValue,
+  getDateFromValue,
+} from '../utils/date';
+import { trimValues } from '../utils/helpers';
 
 const nameMap = {
   'event-name': 'Event Name',
@@ -37,7 +41,8 @@ const hasStartDateError = errors => !!(errors['start-date'] || errors['start-tim
 const hasEndDateError = errors => !!(errors['end-date'] || errors['end-time']);
 const hasDateError = errors => hasStartDateError(errors) || hasEndDateError(errors);
 
-function validate(values) {
+function validate(origValues) {
+  const values = trimValues(origValues);
   const errors = [];
 
   // required fields

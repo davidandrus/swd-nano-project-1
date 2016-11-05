@@ -12,6 +12,7 @@ import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
 import states from '../constants/states';
 import { zipCodeRegExp } from '../constants/regex';
+import { trimValues } from '../utils/helpers';
 
 const nameMap = {
   'location-address': 'Street Address',
@@ -21,8 +22,9 @@ const nameMap = {
   'postal-code': 'Zip Code',
 };
 
-function validate(values) {
+function validate(origValues) {
   const errors = [];
+  const values = trimValues(origValues);
 
   // required fields
   [

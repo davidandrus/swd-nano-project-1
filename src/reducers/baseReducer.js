@@ -1,6 +1,10 @@
 import { handleActions } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import * as actionTypes from '../constants/actionTypes';
+import {
+  registerTrimmer,
+  trimValues,
+} from '../utils/helpers';
 
 const INITIAL_STATE = {
   events: [],
@@ -17,23 +21,19 @@ const INITIAL_STATE = {
 export default handleActions({
   [actionTypes.createEvent]: (state, action) => ({
     ...state,
-    createEvent: action.payload,
+    createEvent: trimValues(action.payload),
   }),
   [actionTypes.createEventLocation]: (state, action) => ({
     ...state,
-    createEventLocation: action.payload,
-  }),
-  [actionTypes.createEventGuests]: (state, action) => ({
-    ...state,
-    createEventGuests: action.payload,
+    createEventLocation: trimValues(action.payload),
   }),
   [actionTypes.register]: (state, action) => ({
     ...state,
-    register: action.payload,
+    register: registerTrimmer(action.payload),
   }),
   [actionTypes.createProfile]: (state, action) => ({
     ...state,
-    profile: action.payload,
+    profile: trimValues(action.payload),
   }),
 
   [actionTypes.addEvent]: state => ({
@@ -42,7 +42,8 @@ export default handleActions({
       creator: state.register.name,
       ...state.createEvent,
       ...state.createEventLocation,
-      ...state.createEventGuests,
+      // wasn't previously trimmed so doing it here.
+      ...trimValues(state.createEventGuests),
     }],
     createEvent: INITIAL_STATE.createEvent,
     createEventLocation: INITIAL_STATE.createEventLocation,
@@ -52,6 +53,7 @@ export default handleActions({
   [actionTypes.addGuest]: (state, action) => ({
     ...state,
     createEventGuests: {
+      ...state.createEventGuests,
       emails: uniq([...state.createEventGuests.emails, action.payload]),
     },
   }),
