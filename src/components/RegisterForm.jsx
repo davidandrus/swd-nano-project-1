@@ -119,11 +119,6 @@ export function RegisterForm({ handleSubmit, onSubmit, passwordValue, passwordBl
       />
       <DynamicValidator
         hasBlurred={passwordBlurred}
-        isValid={hasUpperCaseLetter(passwordValue)}
-        label="must contain a number"
-      />
-      <DynamicValidator
-        hasBlurred={passwordBlurred}
         isValid={hasSpecialCharacter(passwordValue)}
         label={`Must contain one of the following special characters: ${specialChars.join(',')}`}
       />
