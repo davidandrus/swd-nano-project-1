@@ -30,8 +30,15 @@ function populateFields() {
 }
 
 /* eslint-disable no-undef */
-window.initAutocomplete = function initAutocomplete() {
-  autocomplete = new google.maps.places.Autocomplete(
+export function initAutocomplete() {
+
+  // handle case where google maps hasn't bootstrapped
+  if (! window.google) {
+    setTimeout(initAutocomplete, 100);
+    return;
+  }
+
+  autocomplete = new window.google.maps.places.Autocomplete(
 
     document.getElementById('google-places-autocomplete'),
     { types: ['geocode'] }
@@ -40,5 +47,9 @@ window.initAutocomplete = function initAutocomplete() {
   // When the user selects an address from the dropdown, populate the address
   // fields in the form.
   autocomplete.addListener('place_changed', populateFields);
-};
+}
+
+export function teardownAutocomplete() {
+  autocomplete.removeListener('place_changed', populateFields);
+}
 /* eslint-enable no-undef */
