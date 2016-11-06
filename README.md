@@ -4,7 +4,7 @@ You can view the app at https://davidandrus.github.io/swd-nano-project-1/
 
 Notable libraries included in this project are:
 * [React](https://github.com/facebook/react)
-* [Redux](https://github.com/reactjs/redux))
+* [Redux](https://github.com/reactjs/redux)
 * [Redux Form](https://github.com/erikras/redux-form)
 * [Material UI](https://github.com/callemall/material-ui)
 * [React Router](https://github.com/ReactTraining/react-router)
@@ -20,9 +20,26 @@ git clone git@github.com:davidandrus/swd-nano-project-1.git
 ### Install dependencies
 `cd` into your cloned folder and then run:
 ``` sh
-npm install -g babel-cli
 npm install
 ```
+
+### Add API Keys
+Copy the keys template by running:
+
+``` sh
+cp keys.json.template keys.json
+```
+
+Next in _keys.json_ replace __"YOUR_API_KEY_HERE"__ with your google maps API key
+
+#### keys.json
+```
+{
+  "google_maps": "YOUR_API_KEY_HERE"
+}
+```
+ You can obtain a google maps api key from: https://developers.google.com/maps/documentation/javascript/get-api-key
+
 ### Starting the dev server
 ``` sh
 npm start
