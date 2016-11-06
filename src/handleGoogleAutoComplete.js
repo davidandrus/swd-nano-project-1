@@ -50,6 +50,7 @@ export function initAutocomplete() {
 }
 
 export function teardownAutocomplete() {
-  autocomplete.removeListener('place_changed', populateFields);
+  autocomplete.unbindAll();
+  google.maps.event.clearListeners(autocomplete);
 }
 /* eslint-enable no-undef */
