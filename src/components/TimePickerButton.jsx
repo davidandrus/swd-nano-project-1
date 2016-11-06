@@ -11,11 +11,11 @@ export default function TimePickerButton({ onSelect, currentValue }) {
     <PickerButton
       icon={<Schedule />}
       title="Open Time Dialog"
+      initialTime={currentTime && currentTime.toDate()}
       dialog={
         <TimePickerDialog
           format="ampm"
           onAccept={onSelect}
-          initialTime={currentTime && currentTime.toDate()}
         />
       }
     />
