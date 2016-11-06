@@ -13,23 +13,38 @@ export default class PickerButton extends Component {
   }
 
   _openDialog() {
-    this._dialog.show();
+    // must forceUpdate so dialogs initialize to current date and time
+    this.forceUpdate(() => this._dialog.show());
   }
 
   render() {
-    const dialog = cloneElement(this.props.dialog, {
+    const {
+      initialTime,
+      initialDate,
+      dialog,
+      title,
+      icon,
+    } = this.props;
+
+    /**
+     * this is a little strange, but we have to clone on every render to
+     * reinitialize initialDate, initialTime
+     */
+    const dialogClone = cloneElement(dialog, {
+      initialDate: initialDate || moment().toDate(),
+      initialTime: initialTime || moment().toDate(),
       ref: (element) => { this._dialog = element; },
-      value: moment(this.props.currentValue),
     });
 
     return (
       <div>
         <IconButton
           onClick={this._openDialog}
-          title={this.props.title}>
-          {this.props.icon}
+          title={title}
+        >
+          {icon}
         </IconButton>
-        {dialog}
+        {dialogClone}
       </div>
     );
   }
@@ -37,7 +52,8 @@ export default class PickerButton extends Component {
 
 PickerButton.propTypes = {
   icon: PropTypes.node,
-  currentValue: PropTypes.string,
+  initialDate: PropTypes.instanceOf(Date),
+  initialTime: PropTypes.instanceOf(Date),
   dialog: PropTypes.node,
   title: PropTypes.string,
 };
