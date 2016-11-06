@@ -20,6 +20,7 @@ import {
   getDateFromValue,
   getTimeFromValue,
 } from '../utils/date';
+import { longDateTime } from '../constants/formats';
 
 const subTitleStyle = {
   fontSize: '15px',
@@ -59,6 +60,7 @@ function getSubTitleSection(label, value) {
 }
 
 function getSubTitle(event) {
+  console.log(event);
   return (
     <span style={subTitleStyle}>
       {getSubTitleSection('created by', event.creator)}
@@ -136,12 +138,12 @@ const mapStateToProps = state => ({
       ...updatedEvent,
       startDate: getDateFromValue(event['start-date']).set({
         hours: getTimeFromValue(event['start-time']).hours(),
-        minutes: getTimeFromValue(event['start-time']).hours(),
-      }).format('MM/DD/YY - hh:mma'),
+        minutes: getTimeFromValue(event['start-time']).minutes(),
+      }).format(longDateTime),
       endDate: getDateFromValue(event['end-date']).set({
         hours: getTimeFromValue(event['end-time']).hours(),
-        minutes: getTimeFromValue(event['end-time']).hours(),
-      }).format('MM/DD/YY - hh:mma'),
+        minutes: getTimeFromValue(event['end-time']).minutes(),
+      }).format(longDateTime),
     };
   }),
 });
