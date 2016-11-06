@@ -1,12 +1,18 @@
 import React, { PropTypes } from 'react';
+import get from 'lodash/get';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import { TextField } from 'redux-form-material-ui';
 import RequiredLabel from './RequiredLabel';
+import DynamicValidator from './DynamicValidator';
 import { emailRegExp } from '../constants/regex';
-import { standardMarginBottom } from '../constants/styles';
+import {
+  standardMarginBottom,
+  standardMargin,
+} from '../constants/styles';
 import { getters } from '../reducers';
+import { registerTrimmer } from '../utils/helpers';
 
 const nameMap = {
   name: 'Full Name',
@@ -24,20 +30,19 @@ const specialChars = [
   '#',
   '&',
 ];
+const specialCharsRegex = new RegExp(`[\\${specialChars.join('\\')}]`);
+const isValidLength = value => value && value.length > 7;
+const hasLowerCaseLetter = value => /[a-z]/.test(value);
+const hasUpperCaseLetter = value => /[A-Z]/.test(value);
+const hasNumber = value => /[0-9]/.test(value);
+const hasSpecialCharacter = value => specialCharsRegex.test(value);
 
-// must contain uppercase letter, lowercase letter, number and special character
-const passwordRules = [
-  /[A-Z]/,
-  /[a-z]/,
-  /[0-9]/,
-  new RegExp(`[\\${specialChars.join('\\')}]`),
-];
-
-function validate(values) {
+function validate(origValues) {
+  const values = registerTrimmer(origValues);
   const errors = {};
 
   // required fields;
-  ['name', 'email', 'password'].forEach((key) => {
+  ['name', 'email'].forEach((key) => {
     if (!values[key]) {
       errors[key] = `${nameMap[key]} is required`;
     }
@@ -47,24 +52,18 @@ function validate(values) {
     errors.email = `${nameMap.email} is not a valid email address`;
   }
 
-  if (values.password && values.password.length < 8) {
-    errors.password = `${nameMap.password} must be at least 8 characters`;
-  }
-
-  // make sure the required or length error passes through, before these specific password rules
-  if (!errors.password) {
-    passwordRules.forEach((rule) => {
-      if (!rule.test(values.password)) {
-        errors.password = `${nameMap.password} must contain at least one lowercase letter, an uppercase letter,
-          a number and one of the following special characters ${specialChars.join(',')}`;
-      }
-    });
+  if (!(isValidLength(values.password) &&
+      hasLowerCaseLetter(values.password) &&
+      hasUpperCaseLetter(values.password) &&
+      hasNumber(values.password) &&
+      hasSpecialCharacter(values.password))) {
+    errors.password = ' '; // have to set error even though we dont want to display really
   }
 
   return errors;
 }
 
-export function RegisterForm({ handleSubmit, onSubmit }) {
+export function RegisterForm({ handleSubmit, onSubmit, passwordValue, passwordBlurred }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Field
@@ -96,13 +95,43 @@ export function RegisterForm({ handleSubmit, onSubmit }) {
         floatingLabelText={<RequiredLabel text="Password" />}
         hintText="Enter Your Password"
         name="password"
-        style={standardMarginBottom}
         type="password"
+      />
+      <DynamicValidator
+        hasBlurred={passwordBlurred}
+        isValid={isValidLength(passwordValue)}
+        label="Must be at least 8 characters log"
+      />
+      <DynamicValidator
+        hasBlurred={passwordBlurred}
+        isValid={hasLowerCaseLetter(passwordValue)}
+        label="Must contain lowercase letter"
+      />
+      <DynamicValidator
+        hasBlurred={passwordBlurred}
+        isValid={hasUpperCaseLetter(passwordValue)}
+        label="must contain uppercase letter"
+      />
+      <DynamicValidator
+        hasBlurred={passwordBlurred}
+        isValid={hasNumber(passwordValue)}
+        label="must contain a number"
+      />
+      <DynamicValidator
+        hasBlurred={passwordBlurred}
+        isValid={hasUpperCaseLetter(passwordValue)}
+        label="must contain a number"
+      />
+      <DynamicValidator
+        hasBlurred={passwordBlurred}
+        isValid={hasSpecialCharacter(passwordValue)}
+        label={`Must contain one of the following special characters: ${specialChars.join(',')}`}
       />
       <RaisedButton
         primary
         label="Save Profile"
         type="submit"
+        style={{ marginTop: standardMargin }}
       />
     </form>
   );
@@ -111,6 +140,8 @@ export function RegisterForm({ handleSubmit, onSubmit }) {
 RegisterForm.propTypes = {
   handleSubmit: PropTypes.func,
   onSubmit: PropTypes.func,
+  passwordValue: PropTypes.string,
+  passwordBlurred: PropTypes.bool,
 };
 
 const formified = reduxForm({
@@ -118,5 +149,14 @@ const formified = reduxForm({
   validate,
 })(RegisterForm);
 
-const mapStateToProps = state => ({ initialValues: getters.getRegister(state) });
+const mapStateToProps = (state) => {
+  const touched = get(state, 'form.register.fields.password.touched');
+  const visited = get(state, 'form.register.fields.password.visited');
+  return {
+    initialValues: getters.getRegister(state),
+    passwordValue: get(state, 'form.register.values.password', ''),
+    passwordBlurred: touched && visited,
+  };
+};
+
 export default connect(mapStateToProps)(formified);

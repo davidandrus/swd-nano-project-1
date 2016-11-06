@@ -4,7 +4,12 @@ import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 import PickerButton from './PickerButton';
 import { getDateFromValue } from '../utils/date';
 
-export default function DatePickerButton({ onSelect, allowFutureDates, currentValue }) {
+export default function DatePickerButton({
+  onSelect,
+  allowFutureDates,
+  allowPastDates,
+  currentValue,
+}) {
   const currentDate = getDateFromValue(currentValue);
 
   return (
@@ -15,6 +20,7 @@ export default function DatePickerButton({ onSelect, allowFutureDates, currentVa
         <DatePickerDialog
           firstDayOfWeek={1}
           onAccept={onSelect}
+          minDate={!allowPastDates ? new Date() : undefined}
           maxDate={!allowFutureDates ? new Date() : undefined}
           initialDate={currentDate && currentDate.toDate()}
         />
@@ -26,5 +32,11 @@ export default function DatePickerButton({ onSelect, allowFutureDates, currentVa
 DatePickerButton.propTypes = {
   onSelect: PropTypes.func.isRequired,
   allowFutureDates: PropTypes.bool,
+  allowPastDates: PropTypes.bool,
   currentValue: PropTypes.string,
+};
+
+DatePickerButton.defaultProps = {
+  allowPastDates: true,
+  allowFutureDates: true,
 };

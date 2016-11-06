@@ -12,6 +12,8 @@ import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
 import states from '../constants/states';
 import { zipCodeRegExp } from '../constants/regex';
+import { trimValues } from '../utils/helpers';
+import '../handleGoogleAutoComplete';
 
 const nameMap = {
   'location-address': 'Street Address',
@@ -21,8 +23,9 @@ const nameMap = {
   'postal-code': 'Zip Code',
 };
 
-function validate(values) {
+function validate(origValues) {
   const errors = [];
+  const values = trimValues(origValues);
 
   // required fields
   [
@@ -39,7 +42,7 @@ function validate(values) {
   if (!errors['postal-code']) {
     const isValid = zipCodeRegExp.test(values['postal-code']);
     if (!isValid) {
-      errors['postal-code'] = `${nameMap['postal-code']} is not in the correct format e.g. 99999-9999`;
+      errors['postal-code'] = `${nameMap['postal-code']} is not in the correct format e.g. 12345 or 12345-1234`;
     }
   }
 
@@ -57,6 +60,8 @@ export function CreateEventLocationForm({ handleSubmit, onSubmit }) {
       <Field
         fullWidth
         required
+        autoFocus
+        id="google-places-autocomplete"
         autoComplete="address-line1"
         component={TextField}
         floatingLabelText={<RequiredLabel text={nameMap['location-address']} />}

@@ -12,8 +12,10 @@ import DatePickerField from './DatePickerField';
 import { getters } from '../reducers';
 import { standardMarginBottom } from '../constants/styles';
 import { getDateFromValue } from '../utils/date';
+import { trimValues } from '../utils/helpers';
 
-function validate(values) {
+function validate(origValues) {
+  const values = trimValues(origValues);
   const errors = [];
   const birthDate = getDateFromValue(values['birth-date']);
 
@@ -47,6 +49,7 @@ function CreateProfileForm({ handleSubmit, onSubmit, currentValues }) {
         name="title"
       />
       <DatePickerField
+        allowFutureDates={false}
         autoComplete="bday"
         floatingLabelText="Birth Date e.g. 01/01/2000"
         name="birth-date"

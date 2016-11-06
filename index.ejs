@@ -57,10 +57,26 @@
         text-overflow: '';
       }
 
+      /* http://stackoverflow.com/a/30795020/1830384 */
+      ::-webkit-input-placeholder { /* WebKit browsers */
+          color: transparent;
+      }
+      :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+         color: transparent;
+      }
+      ::-moz-placeholder { /* Mozilla Firefox 19+ */
+         color: transparent;
+      }
+      :-ms-input-placeholder { /* Internet Explorer 10+ */
+         color: transparent;
+      }
+
     </style>
   </head>
   <body>
     <div id="root"></div>
     <script src="dist/bundle.js" type="text/javascript"></script>
+    <script src="dist/bundle.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= google_maps %>&libraries=places&callback=initAutocomplete" async defer></script>
   </body>
 </html>

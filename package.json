@@ -6,13 +6,15 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint ./src/** --ext .jsx --ext .js",
-    "start": "babel-node devServer.js",
-    "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
-    "build:github": "NODE_ENV=production DEPLOY_TARGET=github webpack -p --config webpack.config.prod.js"
+    "start": "npm run build-index && babel-node devServer.js",
+    "build-index": "babel-node ./scripts/build-index",
+    "build": "npm run build-index && NODE_ENV=production webpack -p",
+    "build:github": "npm run build-index && NODE_ENV=production DEPLOY_TARGET=github webpack -p"
   },
   "keywords": [],
   "author": "David Andrus",
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",
@@ -22,6 +24,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.14.0",
+    "ejs": "^2.5.2",
     "eslint": "^3.4.0",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-import": "^2.0.0",

@@ -1,8 +1,10 @@
+import forOwn from 'lodash/forOwn';
 import { push } from 'react-router-redux';
 import * as actionTypes from '../constants/actionTypes';
 import { getters } from '../reducers';
 import * as paths from '../constants/paths';
 import store from '../store/configureStore';
+import { change } from 'redux-form';
 
 export const goToCreateProfile = () => store.dispatch(push(paths.createProfile));
 export const goToRegister = () => store.dispatch(push(paths.register));
@@ -24,6 +26,7 @@ const addEvent = getStandardAction(actionTypes.addEvent);
 export const addGuest = getStandardAction(actionTypes.addGuest);
 export const removeGuest = getStandardAction(actionTypes.removeGuest);
 export const updateMessage = getStandardAction(actionTypes.updateMessage);
+
 
 export function register() {
   return (dispatch, getState) => {
@@ -57,5 +60,13 @@ export function addGuests() {
   return (dispatch) => {
     dispatch(addEvent());
     goToEvents();
+  };
+}
+
+export function autocompletePlaces(payload) {
+  return (dispatch) => {
+    forOwn(payload, (value, key) => {
+      dispatch(change('createEventLocation', key, value));
+    });
   };
 }

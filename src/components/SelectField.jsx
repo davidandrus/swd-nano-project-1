@@ -167,7 +167,7 @@ export default class SelectField extends Component {
     };
   }
 
-  componentWillReceiveProps({ value }) {
+  componentWillReceiveProps({ input: { value } }) {
     if (value) {
       this.setState({ hasValue: true });
     }
