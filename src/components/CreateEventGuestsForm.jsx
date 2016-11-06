@@ -47,8 +47,6 @@ export class CreateEventGuestsForm extends Component {
       removeGuest,
     } = this.props;
 
-    console.log('passing chips down', emails);
-
     return (
       <div>
         <AddGuestForm
