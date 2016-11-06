@@ -16,13 +16,13 @@ export default function DatePickerButton({
     <PickerButton
       icon={<DateRange />}
       title="Open Date Dialog"
+      initialDate={currentDate && currentDate.toDate()}
       dialog={
         <DatePickerDialog
           firstDayOfWeek={1}
           onAccept={onSelect}
           minDate={!allowPastDates ? new Date() : undefined}
           maxDate={!allowFutureDates ? new Date() : undefined}
-          initialDate={currentDate && currentDate.toDate()}
         />
       }
     />
