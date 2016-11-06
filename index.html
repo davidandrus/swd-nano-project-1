@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <title>Meet-Up Event Planner</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      }
+
+      h1, h2, h3 {
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      h2 {
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      h3 {
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      input::-webkit-calendar-picker-indicator{
+        display: none;
+      }
+
+      input[type="date"]::-webkit-input-placeholder{
+        visibility: hidden !important;
+      }
+
+      input[type=date]::-webkit-inner-spin-button,
+      input[type=date]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* prevent the required asterisk from being red until form is focused */
+      label[style*="scale(1)"] span span {
+        color: inherit !important;
+      }
+
+      select {
+        -webkit-appearance: textfield;
+        -moz-appearance:none;
+        text-indent: 0.01px;
+        text-overflow: '';
+      }
+
+      /* http://stackoverflow.com/a/30795020/1830384 */
+      ::-webkit-input-placeholder { /* WebKit browsers */
+          color: transparent;
+      }
+      :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+         color: transparent;
+      }
+      ::-moz-placeholder { /* Mozilla Firefox 19+ */
+         color: transparent;
+      }
+      :-ms-input-placeholder { /* Internet Explorer 10+ */
+         color: transparent;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="dist/bundle.js" type="text/javascript"></script>
+    <script src="dist/bundle.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPsKEmUeHV07ZL3M-C9TUjTlFX2MJiKuc&libraries=places&callback=initAutocomplete" async defer></script>
+  </body>
+</html>
