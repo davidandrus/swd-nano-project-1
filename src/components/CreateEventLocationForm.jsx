@@ -13,6 +13,7 @@ import { standardMarginBottom } from '../constants/styles';
 import states from '../constants/states';
 import { zipCodeRegExp } from '../constants/regex';
 import { trimValues } from '../utils/helpers';
+import '../handleGoogleAutoComplete';
 
 const nameMap = {
   'location-address': 'Street Address',
@@ -60,6 +61,7 @@ export function CreateEventLocationForm({ handleSubmit, onSubmit }) {
         fullWidth
         required
         autoFocus
+        id="google-places-autocomplete"
         autoComplete="address-line1"
         component={TextField}
         floatingLabelText={<RequiredLabel text={nameMap['location-address']} />}
